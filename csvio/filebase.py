@@ -20,3 +20,11 @@ class FileBase:
             return True
         except FileExistsError:
             return False
+
+    def delete(self, missing_ok: bool = False) -> bool:
+
+        try:
+            self.path_obj.unlink(missing_ok=missing_ok)
+            return True
+        except FileNotFoundError:
+            return False

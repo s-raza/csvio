@@ -66,3 +66,35 @@ def test_touch_existing_file():
 
     if fb.path_obj.exists() is True:
         fb.path_obj.unlink()
+
+
+def test_delete_file():
+
+    file_ = "test.csv"
+    test_file = Path(file_)
+
+    if test_file.exists() is False:
+        test_file.touch()
+
+    fb = FileBase(file_)
+
+    assert fb.delete() is True and test_file.exists() is False
+
+    if fb.path_obj.exists() is True:
+        fb.path_obj.unlink()
+
+
+def test_delete_non_existent_file():
+
+    file_ = "test.csv"
+    test_file = Path(file_)
+
+    if test_file.exists() is True:
+        test_file.unlink()
+
+    fb = FileBase(file_)
+
+    assert fb.delete() is False and test_file.exists() is False
+
+    if fb.path_obj.exists() is True:
+        fb.path_obj.unlink()
