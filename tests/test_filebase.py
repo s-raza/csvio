@@ -62,8 +62,6 @@ def test_touch_existing_file():
 
     fb = FileBase(file_)
 
-    fb.touch()
-
     assert fb.touch() is False and test_file.exists() is True
 
     if fb.path_obj.exists() is True:
