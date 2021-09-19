@@ -16,7 +16,7 @@ class FileBase:
     def touch(self, exist_ok: bool = False) -> bool:
 
         try:
-            Path(self.filepath).touch(exist_ok=exist_ok)
+            self.path_obj.touch(exist_ok=exist_ok)
             return True
         except FileExistsError:
             return False
