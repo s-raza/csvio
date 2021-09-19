@@ -11,6 +11,10 @@ class CSVBase(FileBase):
         self.rows: List[Dict[str, Any]] = []
 
     @property
+    def num_rows(self) -> int:
+        return len(self.rows)
+
+    @property
     def fieldnames(self) -> List[str]:
         return list(self._fieldnames)
 
