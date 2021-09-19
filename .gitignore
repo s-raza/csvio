@@ -130,3 +130,6 @@ poetry.lock
 
 # csv
 *.csv
+
+# Test jupyter notebooks
+testnotebooks/
