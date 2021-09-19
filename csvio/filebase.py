@@ -12,3 +12,11 @@ class FileBase:
 
         self.filename_no_ext = self.path_obj.stem
         self.file_ext = self.path_obj.suffix
+
+    def touch(self, exist_ok: bool = False) -> bool:
+
+        try:
+            Path(self.filepath).touch(exist_ok=exist_ok)
+            return True
+        except FileExistsError:
+            return False
