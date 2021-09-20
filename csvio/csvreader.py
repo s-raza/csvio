@@ -24,8 +24,8 @@ class CSVReader(CSVBase):
         fieldnames: List[str] = []
 
         try:
-            with open(self.filepath, "r", encoding="utf-8-sig") as fh:
-                csvreader = csv.DictReader(fh)
+            with open(self.filepath, "r", **self.open_kwargs) as fh:
+                csvreader = csv.DictReader(fh, **self.csv_kwargs)
                 fieldnames = csvreader.fieldnames  # type: ignore
 
         except FileNotFoundError:
@@ -41,7 +41,9 @@ class CSVReader(CSVBase):
         try:
             with open(self.filepath, "r", **self.open_kwargs) as fh:
 
-                csv_reader = csv.DictReader(fh, fieldnames=self.fieldnames)
+                csv_reader = csv.DictReader(
+                    fh, fieldnames=self.fieldnames, **self.csv_kwargs
+                )
                 next(csv_reader)
 
                 for row in csv_reader:

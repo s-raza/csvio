@@ -16,8 +16,6 @@ class CSVBase(FileBase):
         self.open_kwargs = open_kwargs
         self.csv_kwargs = csv_kwargs
 
-        self._init_kwargs_dict(self.open_kwargs, {"encoding": "latin-1"})
-
         self._fieldnames: List[str] = []
         self.rows: List[Dict[str, Any]] = []
 
