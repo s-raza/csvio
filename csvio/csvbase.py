@@ -12,7 +12,7 @@ class CSVBase(FileBase):
 
         self.open_kwargs = open_kwargs
 
-        self._init_args_dict(self.open_kwargs, {"encoding": "latin-1"})
+        self._init_kwargs_dict(self.open_kwargs, {"encoding": "latin-1"})
 
         self._fieldnames: List[str] = []
         self.rows: List[Dict[str, Any]] = []
@@ -29,7 +29,7 @@ class CSVBase(FileBase):
     def fieldnames(self, fieldnames: List[str]) -> None:
         self._fieldnames = fieldnames
 
-    def _init_args_dict(
+    def _init_kwargs_dict(
         self, dict_to_update: Dict[str, Any], args_dict: Dict[str, Any]
     ) -> None:
 
