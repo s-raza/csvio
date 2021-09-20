@@ -10,8 +10,7 @@ class CSVBase(FileBase):
 
         self.csv_kwargs = csv_kwargs
 
-        if "encoding" not in self.csv_kwargs:
-            self.csv_kwargs["encoding"] = "latin-1"
+        self._init_csv_args({"encoding": "latin-1"})
 
         self._fieldnames: List[str] = []
         self.rows: List[Dict[str, Any]] = []
@@ -27,3 +26,10 @@ class CSVBase(FileBase):
     @fieldnames.setter
     def fieldnames(self, fieldnames: List[str]) -> None:
         self._fieldnames = fieldnames
+
+    def _init_csv_args(self, args_dict: Dict[str, Any]) -> None:
+
+        for arg, value in args_dict.items():
+
+            if arg not in self.csv_kwargs:
+                self.csv_kwargs[arg] = value
