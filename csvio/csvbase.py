@@ -4,13 +4,15 @@ from .filebase import FileBase
 
 
 class CSVBase(FileBase):
-    def __init__(self, filename: str, csv_kwargs: Dict[str, Any] = {}) -> None:
+    def __init__(
+        self, filename: str, open_kwargs: Dict[str, Any] = {}
+    ) -> None:
 
         super().__init__(filename)
 
-        self.csv_kwargs = csv_kwargs
+        self.open_kwargs = open_kwargs
 
-        self._init_args_dict(self.csv_kwargs, {"encoding": "latin-1"})
+        self._init_args_dict(self.open_kwargs, {"encoding": "latin-1"})
 
         self._fieldnames: List[str] = []
         self.rows: List[Dict[str, Any]] = []

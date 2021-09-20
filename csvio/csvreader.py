@@ -10,10 +10,10 @@ class CSVReader(CSVBase):
         self,
         filename: str,
         fieldnames: List[str] = [],
-        csv_kwargs: Dict[str, str] = {},
+        open_kwargs: Dict[str, str] = {},
     ) -> None:
 
-        super().__init__(filename, csv_kwargs)
+        super().__init__(filename, open_kwargs)
 
         self.fieldnames = fieldnames or self.__get_fieldnames()
         self.rows = self.__get_rows()
@@ -38,9 +38,7 @@ class CSVReader(CSVBase):
         rows: List[Dict[str, Any]] = []
 
         try:
-            with open(
-                self.filepath, "r", **self.csv_kwargs
-            ) as fh:  # type: ignore
+            with open(self.filepath, "r", **self.open_kwargs) as fh:
 
                 csv_reader = csv.DictReader(fh, fieldnames=self.fieldnames)
                 next(csv_reader)
