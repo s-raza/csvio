@@ -14,6 +14,6 @@ def test_csv_reader(tmp_path):
     reader = CSVReader(path_obj)
 
     assert reader.num_rows == NUM_ROWS
-    assert reader.fieldnames == test_csv.get_fieldnames_list(NUM_FIELDS)
+    assert reader.fieldnames == test_csv.fieldnames_list
     assert reader.rows[0]["f1"] == "r1:v1"
     assert reader.rows[50]["f10"] == "r51:v10"
