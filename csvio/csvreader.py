@@ -13,12 +13,7 @@ class CSVReader(CSVBase):
         csv_kwargs: Dict[str, str] = {},
     ) -> None:
 
-        super().__init__(filename)
-
-        self.csv_kwargs = csv_kwargs
-
-        if "encoding" not in self.csv_kwargs:
-            self.csv_kwargs["encoding"] = "latin-1"
+        super().__init__(filename, csv_kwargs)
 
         self.fieldnames = fieldnames or self.__get_fieldnames()
         self.rows = self.__get_rows()
