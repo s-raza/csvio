@@ -4,17 +4,25 @@ class CSVContentGenerator:
         self.num_rows = num_rows
         self.num_fields = num_fields
 
-        self.test_csv_contents = self.get_sample_contents(
+        self.fieldnames_list = self.get_fieldnames_list(num_fields)
+
+        self.contents = self.get_sample_contents(
             self.num_fields, self.num_rows
         )
 
     def get_fieldnames_list(self, num_fields):
-
         return [f"f{i}" for i in range(1, num_fields + 1)]
 
     def get_row_values_list(self, row_num, num_fields):
-
         return [f"r{row_num}:v{f}" for f in range(1, num_fields + 1)]
+
+    def get_row_dict(self, row_num):
+        return {
+            f"f{i}": f"r{row_num}:v{i}" for i in range(1, self.num_fields + 1)
+        }
+
+    def get_row_dict_list(self):
+        return [self.get_row_dict(i) for i in range(1, self.num_rows + 1)]
 
     def get_sample_contents(self, num_fields, num_rows):
 
@@ -33,11 +41,15 @@ class CSVContentGenerator:
 
         return ret_str
 
-    def get_tmp_path_obj(self, tmp_path, tmp_file_name="test.csv"):
+    def get_tmp_path_obj(
+        self, tmp_path, tmp_file_name="test.csv", add_contents=True
+    ):
 
         d = tmp_path / "sub"
         d.mkdir()
         p = d / tmp_file_name
-        p.write_text(self.test_csv_contents)
+
+        if add_contents is True:
+            p.write_text(self.contents)
 
         return p
