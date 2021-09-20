@@ -4,13 +4,13 @@ from .filebase import FileBase
 
 
 class CSVBase(FileBase):
-    def __init__(self, filename: str, csv_kwargs: Dict[str, str] = {}) -> None:
+    def __init__(self, filename: str, csv_kwargs: Dict[str, Any] = {}) -> None:
 
         super().__init__(filename)
 
         self.csv_kwargs = csv_kwargs
 
-        self._init_csv_args({"encoding": "latin-1"})
+        self._init_args_dict(self.csv_kwargs, {"encoding": "latin-1"})
 
         self._fieldnames: List[str] = []
         self.rows: List[Dict[str, Any]] = []
@@ -27,9 +27,11 @@ class CSVBase(FileBase):
     def fieldnames(self, fieldnames: List[str]) -> None:
         self._fieldnames = fieldnames
 
-    def _init_csv_args(self, args_dict: Dict[str, Any]) -> None:
+    def _init_args_dict(
+        self, dict_to_update: Dict[str, Any], args_dict: Dict[str, Any]
+    ) -> None:
 
         for arg, value in args_dict.items():
 
-            if arg not in self.csv_kwargs:
-                self.csv_kwargs[arg] = value
+            if arg not in dict_to_update:
+                dict_to_update[arg] = value
