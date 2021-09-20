@@ -17,7 +17,4 @@ def test_csv_writer(tmp_path):
     writer.add_rows(test_csv.get_row_dict_list())
     writer.flush()
 
-    assert (
-        test_csv.contents
-        == open(path_obj, mode="r", encoding="'utf-8-sig'").read()
-    )
+    assert test_csv.contents == open(path_obj, mode="r").read()
