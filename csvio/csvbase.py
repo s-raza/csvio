@@ -5,12 +5,16 @@ from .filebase import FileBase
 
 class CSVBase(FileBase):
     def __init__(
-        self, filename: str, open_kwargs: Dict[str, Any] = {}
+        self,
+        filename: str,
+        open_kwargs: Dict[str, Any] = {},
+        csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
         super().__init__(filename)
 
         self.open_kwargs = open_kwargs
+        self.csv_kwargs = csv_kwargs
 
         self._init_kwargs_dict(self.open_kwargs, {"encoding": "latin-1"})
 

@@ -11,9 +11,10 @@ class CSVReader(CSVBase):
         filename: str,
         fieldnames: List[str] = [],
         open_kwargs: Dict[str, str] = {},
+        csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
-        super().__init__(filename, open_kwargs)
+        super().__init__(filename, open_kwargs, csv_kwargs)
 
         self.fieldnames = fieldnames or self.__get_fieldnames()
         self.rows = self.__get_rows()
