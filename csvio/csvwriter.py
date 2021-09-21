@@ -76,7 +76,8 @@ class CSVWriter(CSVBase):
                 )
 
                 for pending_row in self.pending_rows:
-                    writer.writerow(pending_row)
+                    row_to_write = pending_row
+                    writer.writerow(row_to_write)
 
         except csv.Error:
             print(f"\nCSV Writer Error: {self.filepath}\n")
