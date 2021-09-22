@@ -2,6 +2,10 @@ from pathlib import Path
 
 
 class FileBase:
+    """
+    FileBase Documentation
+    """
+
     def __init__(self, file_name: str) -> None:
 
         self.path_obj = Path(file_name)

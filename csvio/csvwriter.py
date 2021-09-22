@@ -6,6 +6,47 @@ from .csvbase import CSVBase
 
 
 class CSVWriter(CSVBase):
+    """
+    This object represents a CSV file for writing.
+
+    Args:
+
+        filename (:obj:`str`, required):
+
+            Full path to the CSV file for writing.
+
+        fieldnames (:obj:`list`, required):
+
+            A list of strings representing the column headings for the CSV
+            file.
+
+        open_kwargs: (:obj:`dict`, optional):
+
+            A dictionary of key, value pairs that should be passed to the open
+            method within this class.
+
+        csv_kwargs: (:obj:`dict`, optional):
+
+            A dictionary of key, value pairs that should be passed to the
+            DictReader constructor within this class.
+
+    Attributes:
+
+        fieldnames (:obj:`list`):
+
+            A list of strings representing the column headings for the CSV
+            file.
+
+        pending_rows (:obj:`list`):
+
+            A list of dictionaries where each item in it represents a row that
+            is to be written to the output CSV.
+
+            Each dictionary in the list maps the column heading (field) to the
+            corresponding value for it to be written to the output CSV.
+
+    """
+
     def __init__(
         self,
         filename: str,

@@ -4,6 +4,10 @@ from .filebase import FileBase
 
 
 class CSVBase(FileBase):
+    """
+    CSVBase Documentation
+    """
+
     def __init__(
         self,
         filename: str,

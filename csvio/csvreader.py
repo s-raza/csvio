@@ -6,6 +6,54 @@ from .csvbase import CSVBase
 
 
 class CSVReader(CSVBase):
+    """
+    This object represents a CSV file for reading.
+
+    Args:
+
+        filename (:obj:`str`, required):
+
+            Full path to the CSV file for reading.
+
+        fieldnames (:obj:`list`, optional):
+
+            A list of strings representing the column headings for the CSV
+            file.
+
+            If this list is specified while initiating an Object of this class
+            then it is used as the column headings. This is handy when the CSV
+            to read does not have column headings.
+
+            Otherwise this list is populated from the CSV that is set in the
+            filename argument of this Class's constructor.
+
+        open_kwargs: (:obj:`dict`, optional):
+
+            A dictionary of key, value pairs that should be passed to the open
+            method within this class.
+
+        csv_kwargs: (:obj:`dict`, optional):
+
+            A dictionary of key, value pairs that should be passed to the
+            DictReader constructor within this class.
+
+    Attributes:
+
+        fieldnames (:obj:`list`):
+
+            A list of strings representing the column headings for the CSV
+            file.
+
+        rows (:obj:`list`):
+
+            A list of dictionaries where each item in it represents a row in
+            the CSV file.
+
+            Each dictionary in the list maps the column heading (field) to the
+            corresponding value for it from the CSV.
+
+    """
+
     def __init__(
         self,
         filename: str,
