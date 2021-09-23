@@ -2,5 +2,6 @@ FileBase
 =========
 
 .. autoclass:: csvio.filebase.FileBase
-    :members:
     :show-inheritance:
+    :members:
+    :inherited-members:

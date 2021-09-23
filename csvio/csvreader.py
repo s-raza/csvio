@@ -32,17 +32,6 @@ class CSVReader(CSVBase):
         DictReader constructor within this class.
     :type open_kwargs: :obj:`dict`: optional
 
-
-    :ivar fieldnames: :obj:`list` [:obj:`str`]
-        A list of strings representing the column headings for the CSV
-        file.
-
-    :ivar rows: :obj:`list` [:obj:`dict` {*fieldname: value*}]
-        A list of dictionaries where each item in it represents a row in
-        the CSV file.
-        Each dictionary in the list maps the column heading (fieldname) to the
-        corresponding value for it from the CSV.
-
     Usage:
 
     .. doctest::

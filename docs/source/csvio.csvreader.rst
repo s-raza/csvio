@@ -2,5 +2,6 @@ CSVReader
 =========
 
 .. autoclass:: csvio.CSVReader
-    :members:
     :show-inheritance:
+    :members:
+    :inherited-members:

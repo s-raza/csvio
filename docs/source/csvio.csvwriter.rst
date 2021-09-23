@@ -2,5 +2,6 @@ CSVWriter
 =========
 
 .. autoclass:: csvio.CSVWriter
-    :members:
     :show-inheritance:
+    :members:
+    :inherited-members:

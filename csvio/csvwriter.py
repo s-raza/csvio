@@ -27,17 +27,6 @@ class CSVWriter(CSVBase):
         DictReader constructor within this class.
     :type open_kwargs: :obj:`dict`: optional
 
-
-    :ivar fieldnames: :obj:`list` [:obj:`str`]
-        A list of strings representing the column headings for the CSV
-        file.
-
-    :ivar pending_rows: :obj:`list` [:obj:`dict` {*fieldname: value*}]
-        A list of dictionaries where each item in it represents a row that
-        is to be written to the output CSV.
-        Each dictionary in the list maps the column heading (fieldname) to the
-        corresponding value for it to be written to the output CSV.
-
     """
 
     def __init__(
@@ -214,6 +203,12 @@ class CSVWriter(CSVBase):
             self.pending_rows = []
 
     def write_blank_csv(self) -> None:
+        """
+        Write a blank CSV with only the column headings.
+
+        If the CSV already exists with any rows in it, it will be overwritten
+        and its contents will be replaced with only the column headings.
+        """
 
         if not self._fieldnames_written:
             self.__write_field_headings()
