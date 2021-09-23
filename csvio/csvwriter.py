@@ -9,41 +9,34 @@ class CSVWriter(CSVBase):
     """
     This object represents a CSV file for writing.
 
-    Args:
+    :param filename: Full path to the CSV file for writing.
+    :type filename: :obj:`str`: required
 
-        filename (:obj:`str`, required):
+    :param fieldnames:
+        A list of strings representing the column headings for the CSV
+        file.
+    :type fieldnames: :obj:`list` [:obj:`str`]: required
 
-            Full path to the CSV file for writing.
+    :param open_kwargs:
+        A dictionary of key, value pairs that should be passed to the open
+        method within this class.
+    :type open_kwargs: :obj:`dict`: optional
 
-        fieldnames (:obj:`list`, required):
+    :param csv_kwargs:
+        A dictionary of key, value pairs that should be passed to the
+        DictReader constructor within this class.
+    :type open_kwargs: :obj:`dict`: optional
 
-            A list of strings representing the column headings for the CSV
-            file.
 
-        open_kwargs: (:obj:`dict`, optional):
+    :ivar fieldnames: :obj:`list` [:obj:`str`]
+        A list of strings representing the column headings for the CSV
+        file.
 
-            A dictionary of key, value pairs that should be passed to the open
-            method within this class.
-
-        csv_kwargs: (:obj:`dict`, optional):
-
-            A dictionary of key, value pairs that should be passed to the
-            DictReader constructor within this class.
-
-    Attributes:
-
-        fieldnames (:obj:`list`):
-
-            A list of strings representing the column headings for the CSV
-            file.
-
-        pending_rows (:obj:`list`):
-
-            A list of dictionaries where each item in it represents a row that
-            is to be written to the output CSV.
-
-            Each dictionary in the list maps the column heading (field) to the
-            corresponding value for it to be written to the output CSV.
+    :ivar pending_rows: :obj:`list` [:obj:`dict` {*fieldname: value*}]
+        A list of dictionaries where each item in it represents a row that
+        is to be written to the output CSV.
+        Each dictionary in the list maps the column heading (fieldname) to the
+        corresponding value for it to be written to the output CSV.
 
     """
 
@@ -92,6 +85,48 @@ class CSVWriter(CSVBase):
     def add_rows(
         self, rows: Union[Dict[str, Any], List[Dict[str, Any]]]
     ) -> None:
+        """
+        Add rows for writing to the output CSV.
+
+        All the rows to be written to the output CSV are collected using this
+        method.
+
+        This only collects the rows to be written without writing anything to
+        the output CSV. The rows are written to output only when the method
+        :py:meth:`csvio.CSVWriter.flush` is called.
+
+        :param rows:
+            A single dictionary or a list of dictionaries that repsresent the
+            row(s) to be written to the output CSV.
+        :type rows:
+            :obj:`dict` *{fieldname, value}* |
+            :obj:`list` [:obj:`dict` {*fieldname: value*}]: required
+
+        Usage:
+
+        .. doctest::
+
+            >>> from csvio import CSVWriter
+            >>> writer = CSVWriter("fruit_stock.csv", fieldnames=["Supplier", "Fruit", "Quantity"])
+            >>> row1 = {"Supplier": "Big Apple", "Fruit": "Apple", "Quantity": 1}
+            >>> writer.add_rows(row1)
+            >>> rows2_3_4 = [
+            ...     {"Supplier": "Big Melons", "Fruit": "Melons", "Quantity": 2},
+            ...     {"Supplier": "Long Mangoes", "Fruit": "Mango", "Quantity": 3},
+            ...     {"Supplier": "Small Strawberries", "Fruit": "Strawberry", "Quantity": 4}
+            ... ]
+            >>> writer.add_rows(rows2_3_4)
+            >>> len(writer.pending_rows)
+            4
+
+            >>> (writer.rows)
+            0
+
+        Notice that the :py:attr:`csvio.CSVWriter.rows` property is still
+        empty. This property is incremented by the number of currently pending
+        rows once they are flushed.
+
+        """
 
         if isinstance(rows, dict):
             rows = [rows]
@@ -126,6 +161,48 @@ class CSVWriter(CSVBase):
             traceback.print_exc()
 
     def flush(self) -> None:
+        """
+        Write pending rows to the output CSV.
+
+        Usage:
+
+        .. doctest::
+
+            >>> from csvio import CSVWriter
+            >>> writer = CSVWriter("fruit_stock.csv", fieldnames=["Supplier", "Fruit", "Quantity"])
+            >>> row1 = {"Supplier": "Big Apple", "Fruit": "Apple", "Quantity": 1}
+            >>> writer.add_rows(row1)
+            >>> rows2_3_4 = [
+            ...     {"Supplier": "Big Melons", "Fruit": "Melons", "Quantity": 2},
+            ...     {"Supplier": "Long Mangoes", "Fruit": "Mango", "Quantity": 3},
+            ...     {"Supplier": "Small Strawberries", "Fruit": "Strawberry", "Quantity": 4}
+            ... ]
+            >>> writer.add_rows(rows2_3_4)
+            >>> len(writer.pending_rows)
+            4
+
+            >>> len(writer.rows)
+            0
+
+            >>> writer.flush()
+            >>> len(writer.pending_rows)
+            0
+
+            >>> len(writer.rows)
+            4
+
+        Once flush is called a CSV file with the name *fruit_stock.csv* will be
+        written with the following contents.
+
+        .. code-block:: bash
+
+            Supplier,Fruit,Quantity
+            Big Apple,Apple,1
+            Big Melons,Melons,2
+            Long Mangoes,Mango,3
+            Small Strawberries,Strawberry,4
+
+        """
 
         if self.pending_rows:
 

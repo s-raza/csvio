@@ -1,5 +1,5 @@
-csvio package
-=============
+csvio API Specifications
+========================
 
 .. toctree::
     csvio.csvreader

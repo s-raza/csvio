@@ -7,50 +7,88 @@ from .csvbase import CSVBase
 
 class CSVReader(CSVBase):
     """
-    This object represents a CSV file for reading.
+    This object represents the CSV file provided in the *filename* parameter.
 
-    Args:
+    :param filename: Full path to the CSV file for reading.
+    :type filename: :obj:`str`: required
 
-        filename (:obj:`str`, required):
+    :param fieldnames:
+        A list of strings representing the column headings for the CSV
+        file.
+        If this list is specified while initiating an Object of this class
+        then it is used as the column headings. This is handy when the CSV
+        to read does not have column headings.
+        Otherwise this list is populated from the CSV that is set in the
+        filename argument of this Class's constructor.
+    :type fieldnames: :obj:`list` [:obj:`str`]: optional
 
-            Full path to the CSV file for reading.
+    :param open_kwargs:
+        A dictionary of key, value pairs that should be passed to the open
+        method within this class.
+    :type open_kwargs: :obj:`dict`: optional
 
-        fieldnames (:obj:`list`, optional):
+    :param csv_kwargs:
+        A dictionary of key, value pairs that should be passed to the
+        DictReader constructor within this class.
+    :type open_kwargs: :obj:`dict`: optional
 
-            A list of strings representing the column headings for the CSV
-            file.
 
-            If this list is specified while initiating an Object of this class
-            then it is used as the column headings. This is handy when the CSV
-            to read does not have column headings.
+    :ivar fieldnames: :obj:`list` [:obj:`str`]
+        A list of strings representing the column headings for the CSV
+        file.
 
-            Otherwise this list is populated from the CSV that is set in the
-            filename argument of this Class's constructor.
+    :ivar rows: :obj:`list` [:obj:`dict` {*fieldname: value*}]
+        A list of dictionaries where each item in it represents a row in
+        the CSV file.
+        Each dictionary in the list maps the column heading (fieldname) to the
+        corresponding value for it from the CSV.
 
-        open_kwargs: (:obj:`dict`, optional):
+    Usage:
 
-            A dictionary of key, value pairs that should be passed to the open
-            method within this class.
+    .. doctest::
 
-        csv_kwargs: (:obj:`dict`, optional):
+        >>> from csvio import CSVReader
+        >>> reader = CSVReader("fruit_stock.csv")
+        >>> reader.fieldnames
+        ['Supplier', 'Fruit', 'Quantity']
 
-            A dictionary of key, value pairs that should be passed to the
-            DictReader constructor within this class.
+        >>> len(reader.rows)
+        4
 
-    Attributes:
+        >>> import json
+        >>> print(json.dumps(reader.rows, indent=4))
+        [
+            {
+                "Supplier": "Big Apple",
+                "Fruit": "Apple",
+                "Quantity": "1"
+            },
+            {
+                "Supplier": "Big Melons",
+                "Fruit": "Melons",
+                "Quantity": "2"
+            },
+            {
+                "Supplier": "Big Mangoes",
+                "Fruit": "Mango",
+                "Quantity": "3"
+            },
+            {
+                "Supplier": "Small Strawberries",
+                "Fruit": "Strawberry",
+                "Quantity": "4"
+            }
+        ]
 
-        fieldnames (:obj:`list`):
+    CSV file contents:
 
-            A list of strings representing the column headings for the CSV
-            file.
+    .. code-block:: bash
 
-        rows (:obj:`list`):
-
-            A list of dictionaries where each item in it represents a row in
-            the CSV file.
-
-            Each dictionary in the list maps the column heading (field) to the
-            corresponding value for it from the CSV.
+            Supplier,Fruit,Quantity
+            Big Apple,Apple,1
+            Big Melons,Melons,2
+            Long Mangoes,Mango,3
+            Small Strawberries,Strawberry,4
 
     """
 
