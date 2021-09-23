@@ -10,7 +10,7 @@ repository = "https://github.com/s-raza/csvio"
 keywords = ["csv", "file processing"]
 classifiers = [
     "Environment :: Console",
-    "Operating System :: OS Independent"
+    "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -21,8 +21,6 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-python-dotenv = "^0.18.0"
-ipykernel = "^6.4.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
