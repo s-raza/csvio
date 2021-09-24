@@ -8,7 +8,7 @@ Welcome to csvio's documentation!
 
 .. image:: https://img.shields.io/github/license/s-raza/csvio?color=bright
     :alt: GitHub License
-    :target: https://github.com/joowani/binarytree/blob/main/LICENSE
+    :target: https://github.com/s-raza/csvio/blob/master/LICENSE
 
 .. image:: https://img.shields.io/badge/python-3.8%2B-bright
     :alt: Python Versions
