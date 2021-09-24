@@ -121,9 +121,6 @@ venv.bak/
 # Pipenv
 Pipfile.lock
 
-# Poetry
-poetry.lock
-
 # Telethon sessions
 *.session
 *.session-journal
