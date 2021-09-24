@@ -13,6 +13,8 @@ item in this list is a dictionary that represents a row. The key, value pairs
 in each dictionary is a mapping between the column and its associated row value
 from the CSV.
 
+[Readthedocs](https://csvio.readthedocs.io)
+
 Installation
 ------------
 
