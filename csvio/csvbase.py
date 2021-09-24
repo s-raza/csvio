@@ -5,7 +5,7 @@ from .filebase import FileBase
 
 class CSVBase(FileBase):
     """
-    This is base class represents a basic CSV file for reading/writing.
+    This is a base class representing a basic CSV file for reading/writing.
 
     :param filename: Full path to the CSV file for reading/writing.
     :type filename: :obj:`str`: required

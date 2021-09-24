@@ -7,7 +7,7 @@ from .csvbase import CSVBase
 
 class CSVReader(CSVBase):
     """
-    This object represents the CSV file provided in the *filename* parameter.
+    This object represents a CSV file for reading.
 
     :param filename: Full path to the CSV file for reading.
     :type filename: :obj:`str`: required
@@ -19,7 +19,7 @@ class CSVReader(CSVBase):
         then it is used as the column headings. This is handy when the CSV
         to read does not have column headings.
         Otherwise this list is populated from the CSV that is set in the
-        filename argument of this Class's constructor.
+        *filename* argument of this Class's constructor.
     :type fieldnames: :obj:`list` [:obj:`str`]: optional
 
     :param open_kwargs:

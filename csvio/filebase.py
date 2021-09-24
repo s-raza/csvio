@@ -3,7 +3,7 @@ from pathlib import Path
 
 class FileBase:
     """
-    This is a base class represents a basic file.
+    This is a base class representing a basic file.
 
     :param filename: Full path to a file.
     :type filename: :obj:`str`: required
