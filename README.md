@@ -2,6 +2,7 @@
 
 [![Licence](https://img.shields.io/github/license/s-raza/csvio?color=bright)](https://github.com/s-raza/csvio/blob/master/LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.8.2%2B-bright)](https://www.python.org/downloads/release/python-382/)
+[![Readthedocs](https://img.shields.io/readthedocs/csvio/latest)](https://csvio.readthedocs.io/en/latest)
 
 
 csvio is a Python library that provides a wrapper around Python's built in
