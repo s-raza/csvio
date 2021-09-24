@@ -13,21 +13,20 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Topic :: Utilities",
     "Topic :: Text Processing",
     "Topic :: Text Processing :: General"
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pytest-cov = "^2.12.1"
 ptpython = "^3.0.19"
 pre-commit = "^2.13.0"
-flake8 = "^3.9"
+flake8 = "^3.8"
 black = {version = "^21.6b0", allow-prereleases = true}
 mypy = "^0.910"
 isort = "^5.9.2"
@@ -40,7 +39,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 79
-target-version = ["py39"]
+target-version = ["py38"]
 include = '\.pyi?$'
 exclude = '''
 
