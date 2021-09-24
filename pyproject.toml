@@ -13,7 +13,7 @@ classifiers = [
     "Environment :: Console",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
     "Topic :: Utilities",
     "Topic :: Text Processing",
     "Topic :: Text Processing :: General"
