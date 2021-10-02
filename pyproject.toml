@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "csvio"
-version = "0.1.0"
+version = "0.2.0"
 description = "CSV Wrapper for conveniently processing csv files"
 authors = ["Salman Raza <raza.salman@gmail.com>"]
 license = "MIT"
