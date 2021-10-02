@@ -9,3 +9,6 @@ Contents
 
 * :ref:`genindex`
 * :ref:`search`
+
+.. toctree::
+   changelog
