@@ -1,3 +1,26 @@
+def get_tmp_path_obj(tmp_path, tmp_file_name="test.csv"):
+
+    d = tmp_path / "sub"
+    d.mkdir()
+    p = d / tmp_file_name
+
+    return p
+
+
+def text_to_cols_rows(txt):
+
+    lines = txt.split("\n")
+    columns = lines[0].split(",")
+
+    rows = []
+
+    for line in lines[1:]:
+
+        rows.append(dict(zip(columns, line.split(","))))
+
+    return columns, rows
+
+
 class CSVContentGenerator:
     def __init__(self, num_fields, num_rows):
 
@@ -45,9 +68,7 @@ class CSVContentGenerator:
         self, tmp_path, tmp_file_name="test.csv", add_contents=True
     ):
 
-        d = tmp_path / "sub"
-        d.mkdir()
-        p = d / tmp_file_name
+        p = get_tmp_path_obj(tmp_path, tmp_file_name)
 
         if add_contents is True:
             p.write_text(self.contents)
