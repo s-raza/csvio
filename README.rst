@@ -1,3 +1,7 @@
+.. image:: https://github.com/s-raza/csvio/blob/v0.2.0/docs/source/_static/csvio_logo_240x160px.png?raw=True
+   :align: center
+   :target: https://github.com/s-raza/csvio
+   :alt: csvio Logo
 
 csvio: Python Library for processing CSV files
 ==============================================
