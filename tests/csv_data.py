@@ -21,23 +21,18 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from csvio.csvwriter import CSVWriter
+from .csv_contents_generator import text_to_cols_rows
 
-from .csv_contents_generator import CSVContentGenerator
+csv_data = """Supplier,Fruit,Origin,Quantity
+Big Apples,Apple,Spain,1
+Big Melons,Melons,Italy,2
+Long Mangoes,Mango,India,3
+Small Strawberries,Strawberry,France,4
+Short Mangoes,Mango,France,5
+Sweet Strawberries,Strawberry,Spain,6
+Square Apples,Apple,Italy,7
+Small Melons,Melons,Italy,8
+Dark Berries,Strawberry,Australia,9
+Sweet Berries,Blackcurrant,Australia,10"""
 
-NUM_FIELDS = 100
-NUM_ROWS = 1000
-
-test_csv = CSVContentGenerator(NUM_FIELDS, NUM_ROWS)
-
-
-def test_csv_writer(tmp_path):
-
-    path_obj = test_csv.get_tmp_path_obj(tmp_path, add_contents=False)
-
-    writer = CSVWriter(path_obj, fieldnames=test_csv.fieldnames_list)
-
-    writer.add_rows(test_csv.get_row_dict_list())
-    writer.flush()
-
-    assert test_csv.contents == open(path_obj, mode="r").read()
+test_columns, test_rows = text_to_cols_rows(csv_data)
