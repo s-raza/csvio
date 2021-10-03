@@ -3,7 +3,7 @@ from csvio.csvreader import CSVReader
 from .csv_contents_generator import CSVContentGenerator
 
 NUM_FIELDS = 100
-NUM_ROWS = 10000
+NUM_ROWS = 1000
 
 test_csv = CSVContentGenerator(NUM_FIELDS, NUM_ROWS)
 
