@@ -296,6 +296,15 @@ def test_rows_to_nested_dicts(tmp_path):
     reader = CSVReader(path_obj)
 
     assert (
+        writer.rows_to_nested_dicts(["Origin", "Supplier"]) == origin_supplier
+    )
+    assert writer.rows_to_nested_dicts(["Origin"]) == origin
+    assert (
+        writer.rows_to_nested_dicts(["Fruit", "Supplier", "Origin"])
+        == fruit_supplier_origin
+    )
+
+    assert (
         reader.rows_to_nested_dicts(["Origin", "Supplier"]) == origin_supplier
     )
     assert reader.rows_to_nested_dicts(["Origin"]) == origin
