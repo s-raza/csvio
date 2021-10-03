@@ -9,6 +9,10 @@ Welcome to csvio's documentation!
 .. image:: https://img.shields.io/badge/python-3.8%2B-bright
     :alt: Python Versions
 
+.. image:: https://img.shields.io/readthedocs/csvio/latest
+    :alt: Readthedocs
+    :target: https://csvio.readthedocs.io/en/latest
+
 csvio is a Python library that provides a wrapper around Python's built in
 :obj:`csv.DictReader` and :obj:`csv.DictWriter`, for ease of reading and
 writing CSV files.
@@ -24,6 +28,11 @@ Installation
 .. code-block:: bash
 
    pip install csvio
+
+Documentation
+-------------
+
+`Readthedocs <https://csvio.readthedocs.io>`_
 
 Reading CSVs
 ------------
