@@ -18,7 +18,7 @@ csvio: Python Library for processing CSV files
     :target: https://csvio.readthedocs.io/en/latest
 
 csvio is a Python library that provides a wrapper around Python's built in
-:obj:`csv.DictReader` and :obj:`csv.DictWriter`, for ease of reading and
+``csv.DictReader`` and ``csv.DictWriter``, for ease of reading and
 writing CSV files.
 
 Rows in a CSV are represented and processed as a list of dictionaries. Each
