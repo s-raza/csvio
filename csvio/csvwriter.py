@@ -1,3 +1,26 @@
+# MIT License
+#
+# csvio: A library for conveniently processing CSV files.
+#
+# Copyright (c) 2021 Salman Raza <raza.salman@gmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 import csv
 import traceback
 from typing import Any, Dict, List, Union
@@ -10,22 +33,22 @@ class CSVWriter(CSVBase):
     This object represents a CSV file for writing.
 
     :param filename: Full path to the CSV file for writing.
-    :type filename: :obj:`str`: required
+    :type filename: required
 
     :param fieldnames:
         A list of strings representing the column headings for the CSV
         file.
-    :type fieldnames: :obj:`list` [:obj:`str`]: required
+    :type fieldnames: required
 
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type open_kwargs: optional
 
     :param csv_kwargs:
         A dictionary of key, value pairs that should be passed to the
         DictReader constructor within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type csv_kwargs: optional
 
     """
 
@@ -45,6 +68,9 @@ class CSVWriter(CSVBase):
 
     @property
     def pending_rows(self) -> List[Dict[str, Any]]:
+        """
+        :return: List of rows not flushed yet and are pending to be written
+        """
         return self._pending_rows
 
     @pending_rows.setter
@@ -87,9 +113,7 @@ class CSVWriter(CSVBase):
         :param rows:
             A single dictionary or a list of dictionaries that repsresent the
             row(s) to be written to the output CSV.
-        :type rows:
-            :obj:`dict` *{fieldname, value}* |
-            :obj:`list` [:obj:`dict` {*fieldname: value*}]: required
+        :type rows: required
 
         Usage:
 
@@ -108,7 +132,7 @@ class CSVWriter(CSVBase):
             >>> len(writer.pending_rows)
             4
 
-            >>> (writer.rows)
+            >>> len(writer.rows)
             0
 
         Notice that the :py:attr:`csvio.CSVWriter.rows` property is still
@@ -151,7 +175,8 @@ class CSVWriter(CSVBase):
 
     def flush(self) -> None:
         """
-        Write pending rows to the output CSV.
+        Write pending rows to the output CSV and reset the
+        :py:attr:`CSVWriter.pending_rows` property to an empty :obj:`list`
 
         Usage:
 
