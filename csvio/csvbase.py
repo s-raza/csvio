@@ -8,17 +8,17 @@ class CSVBase(FileBase):
     This is a base class representing a basic CSV file for reading/writing.
 
     :param filename: Full path to the CSV file for reading/writing.
-    :type filename: :obj:`str`: required
+    :type filename: required
 
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type open_kwargs: optional
 
     :param csv_kwargs:
         A dictionary of key, value pairs that should be passed to the
         DictReader constructor within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type csv_kwargs: optional
 
     """
 
@@ -97,6 +97,26 @@ class CSVBase(FileBase):
     def rows_from_column_key(
         self, column_name: str, rows: List[Dict[str, Any]] = None
     ) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Collect all the rows in the ``rows`` parameter that have the same
+        values for the column defined in the ``column_name`` parameter, and
+        construct a dictionary with the ``column_name`` value as the key and
+        the corresponding rows as a list of dictionaries, as the value of
+        this key.
+
+        :param column_name: Name of the column that is to be used as the key
+            under which all the rows having the samee value of this column will
+            be collected.
+        :type column_name: required
+
+        :param rows: List of dictionaries representing the rows that will
+            be separated and collected under a the common value of the column
+            name provided in ``column_name`` parameter.
+        :type rows: optional. If not provided
+            :obj:`self.rows` will be used.
+
+        :return: A dictionary constructed using the logic as explained above.
+        """
 
         ret_dict: Dict[str, Any] = {}
         rows = rows or self.rows
@@ -109,6 +129,31 @@ class CSVBase(FileBase):
     def rows_to_nested_dicts(
         self, column_order: List[str], rows: List[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
+        """
+        Collect all values of columns that are the same and construct a nested
+        dictionary that has the common values as the keys, in the same order of
+        hierarchy as provided in the `column_order` parameter.
+
+        The value of the last column name in the `column_order` list
+
+        :param column_order: An ordered list of column names, to be used for
+            constructing the dictionary
+        :type column_order: required
+
+        :param rows: List of dictionaries representing the rows that will
+            be transformed to the output Dictionary.
+        :type rows: optional. If not provided
+            :obj:`self.rows` will be used.
+
+        :return: A dictionary with same column values collected under a common
+            key in a hierarchical order.
+
+        Example:
+
+        .. include:: examples/csvio.csvbase.rst
+            :start-after: start-rows_to_nested_dicts
+            :end-before: end-rows_to_nested_dicts
+        """
 
         rows = rows or self.rows
 

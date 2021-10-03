@@ -6,7 +6,7 @@ class FileBase:
     This is a base class representing a basic file.
 
     :param filename: Full path to a file.
-    :type filename: :obj:`str`: required
+    :type filename: required
 
     """
 
@@ -65,7 +65,7 @@ class FileBase:
 
         :param exist_ok: Parameter to pass to the :obj:`pathlib.Path.touch()`
             method.
-        :type exist_ok: :obj:`True` | :obj:`False`
+        :type exist_ok: optional
 
         :return:
             :obj:`True` If blank file is created successfully.
@@ -83,9 +83,9 @@ class FileBase:
         """
         Delete the file at the path provided in the *filename* parameter
 
-        :param exist_ok: Parameter to pass to the :obj:`pathlib.Path.unlink()`
+        :param missing_ok: Parameter to pass to the :obj:`pathlib.Path.unlink()`
             method.
-        :type exist_ok: :obj:`True` | :obj:`False`
+        :type missing_ok: optional
 
         :return:
             :obj:`True` If file is deleted successfully.

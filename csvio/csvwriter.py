@@ -10,22 +10,22 @@ class CSVWriter(CSVBase):
     This object represents a CSV file for writing.
 
     :param filename: Full path to the CSV file for writing.
-    :type filename: :obj:`str`: required
+    :type filename: required
 
     :param fieldnames:
         A list of strings representing the column headings for the CSV
         file.
-    :type fieldnames: :obj:`list` [:obj:`str`]: required
+    :type fieldnames: required
 
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type open_kwargs: optional
 
     :param csv_kwargs:
         A dictionary of key, value pairs that should be passed to the
         DictReader constructor within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type csv_kwargs: optional
 
     """
 
@@ -45,6 +45,9 @@ class CSVWriter(CSVBase):
 
     @property
     def pending_rows(self) -> List[Dict[str, Any]]:
+        """
+        :return: List of rows not flushed yet and are pending to be written
+        """
         return self._pending_rows
 
     @pending_rows.setter
@@ -87,9 +90,7 @@ class CSVWriter(CSVBase):
         :param rows:
             A single dictionary or a list of dictionaries that repsresent the
             row(s) to be written to the output CSV.
-        :type rows:
-            :obj:`dict` *{fieldname, value}* |
-            :obj:`list` [:obj:`dict` {*fieldname: value*}]: required
+        :type rows: required
 
         Usage:
 
@@ -108,7 +109,7 @@ class CSVWriter(CSVBase):
             >>> len(writer.pending_rows)
             4
 
-            >>> (writer.rows)
+            >>> len(writer.rows)
             0
 
         Notice that the :py:attr:`csvio.CSVWriter.rows` property is still
@@ -151,7 +152,8 @@ class CSVWriter(CSVBase):
 
     def flush(self) -> None:
         """
-        Write pending rows to the output CSV.
+        Write pending rows to the output CSV and reset the
+        :py:attr:`CSVWriter.pending_rows` property to an empty :obj:`list`
 
         Usage:
 

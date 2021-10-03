@@ -10,7 +10,7 @@ class CSVReader(CSVBase):
     This object represents a CSV file for reading.
 
     :param filename: Full path to the CSV file for reading.
-    :type filename: :obj:`str`: required
+    :type filename: required
 
     :param fieldnames:
         A list of strings representing the column headings for the CSV
@@ -20,17 +20,17 @@ class CSVReader(CSVBase):
         to read does not have column headings.
         Otherwise this list is populated from the CSV that is set in the
         *filename* argument of this Class's constructor.
-    :type fieldnames: :obj:`list` [:obj:`str`]: optional
+    :type fieldnames: optional
 
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type open_kwargs: optional
 
     :param csv_kwargs:
         A dictionary of key, value pairs that should be passed to the
         DictReader constructor within this class.
-    :type open_kwargs: :obj:`dict`: optional
+    :type csv_kwargs: optional
 
     Usage:
 
