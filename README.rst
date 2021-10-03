@@ -1,6 +1,6 @@
 
-Welcome to csvio's documentation!
-=================================
+csvio: Python Library for processing CSV files
+==============================================
 
 .. image:: https://img.shields.io/github/license/s-raza/csvio?color=bright
     :alt: GitHub License
