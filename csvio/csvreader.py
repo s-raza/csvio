@@ -23,10 +23,10 @@
 # SOFTWARE.
 import csv
 import traceback
-from typing import Any, Dict
 
 from .csvbase import CSVBase
-from .utils.types import FN, KW, RS
+from .processors.processor_base import ProcessorBase
+from .utils.types import FN, KW, RS, R
 
 
 class CSVReader(CSVBase):
@@ -108,6 +108,7 @@ class CSVReader(CSVBase):
     def __init__(
         self,
         filename: str,
+        fieldprocessor: ProcessorBase = None,
         fieldnames: FN = [],
         open_kwargs: KW = {},
         csv_kwargs: KW = {},
@@ -115,6 +116,7 @@ class CSVReader(CSVBase):
 
         super().__init__(filename, open_kwargs, csv_kwargs)
 
+        self.field_processor = fieldprocessor
         self.fieldnames = fieldnames or self.__get_fieldnames()
         self.rows = self.__get_rows()
 
@@ -147,12 +149,15 @@ class CSVReader(CSVBase):
 
                 for row in csv_reader:
 
-                    row_dict: Dict[str, Any] = {}
+                    row_dict: R = {}
 
                     for fieldname in self.fieldnames:
                         row_dict[fieldname] = row[fieldname]
 
-                    rows.append(row_dict)
+                    if self.field_processor is not None:
+                        rows.append(self.field_processor.process_row(row_dict))
+                    else:
+                        rows.append(row_dict)
 
         except csv.Error:
 
