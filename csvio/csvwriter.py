@@ -23,9 +23,10 @@
 # SOFTWARE.
 import csv
 import traceback
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, Union
 
 from .csvbase import CSVBase
+from .utils.types import FN, RS, R
 
 
 class CSVWriter(CSVBase):
@@ -55,26 +56,26 @@ class CSVWriter(CSVBase):
     def __init__(
         self,
         filename: str,
-        fieldnames: List[str],
+        fieldnames: FN,
         open_kwargs: Dict[str, str] = {},
         csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
         super().__init__(filename, open_kwargs, csv_kwargs)
 
-        self._pending_rows: List[Dict[str, Any]] = []
-        self.fieldnames: List[str] = fieldnames
+        self._pending_rows: RS = []
+        self.fieldnames: FN = fieldnames
         self._fieldnames_written: bool = False
 
     @property
-    def pending_rows(self) -> List[Dict[str, Any]]:
+    def pending_rows(self) -> RS:
         """
         :return: List of rows not flushed yet and are pending to be written
         """
         return self._pending_rows
 
     @pending_rows.setter
-    def pending_rows(self, rows: List[Dict[str, Any]]) -> None:
+    def pending_rows(self, rows: RS) -> None:
         self._pending_rows = rows
 
     def __write_field_headings(self) -> bool:
@@ -97,9 +98,7 @@ class CSVWriter(CSVBase):
         else:
             return False
 
-    def add_rows(
-        self, rows: Union[Dict[str, Any], List[Dict[str, Any]]]
-    ) -> None:
+    def add_rows(self, rows: Union[R, RS]) -> None:
         """
         Add rows for writing to the output CSV.
 
