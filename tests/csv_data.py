@@ -21,7 +21,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from .csv_contents_generator import text_to_cols_rows
+from csvio.csvreader import CSVReader
+from csvio.csvwriter import CSVWriter
+
+from .csv_contents_generator import get_tmp_path_obj, text_to_cols_rows
 
 csv_data = """Supplier,Fruit,Origin,Quantity
 Big Apples,Apple,Spain,1
@@ -36,3 +39,17 @@ Dark Berries,Strawberry,Australia,9
 Sweet Berries,Blackcurrant,Australia,10"""
 
 test_columns, test_rows = text_to_cols_rows(csv_data)
+
+
+def get_csv_reader_writer(tmp_path, reader_kwargs={}, writer_kwargs={}):
+
+    path_obj = get_tmp_path_obj(tmp_path)
+
+    writer = CSVWriter(path_obj, fieldnames=test_columns, **writer_kwargs)
+
+    writer.add_rows(test_rows)
+    writer.flush()
+
+    reader = CSVReader(path_obj, **reader_kwargs)
+
+    return writer, reader
