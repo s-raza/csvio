@@ -25,7 +25,7 @@ import csv
 import traceback
 
 from .csvbase import CSVBase
-from .processors.processor_base import ProcessorBase
+from .processors import FieldProcessor
 from .utils.types import FN, KW, RS, R
 
 
@@ -46,6 +46,12 @@ class CSVReader(CSVBase):
         *filename* argument of this Class's constructor.
     :type fieldnames: optional
 
+    :param fieldprocessor:
+        An instance of the :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object. The processor functions defined in the :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object are applied to the rows in the CSV after they read.
+    :type fieldprocessor: optional
+
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
@@ -56,59 +62,26 @@ class CSVReader(CSVBase):
         DictReader constructor within this class.
     :type csv_kwargs: optional
 
-    Usage:
+    **CSVReader Usage without** ``fieldprocessor``:
 
-    .. doctest::
+    .. include:: examples/csvio.csvreader.rst
+        :start-after: start-csvreader
+        :end-before: end-csvreader
 
-        >>> from csvio import CSVReader
-        >>> reader = CSVReader("fruit_stock.csv")
-        >>> reader.fieldnames
-        ['Supplier', 'Fruit', 'Quantity']
+    .. _csvreader_fp_usage:
 
-        >>> len(reader.rows)
-        4
+    **CSVReader Usage with** ``fieldprocessor``
 
-        >>> import json
-        >>> print(json.dumps(reader.rows, indent=4))
-        [
-            {
-                "Supplier": "Big Apple",
-                "Fruit": "Apple",
-                "Quantity": "1"
-            },
-            {
-                "Supplier": "Big Melons",
-                "Fruit": "Melons",
-                "Quantity": "2"
-            },
-            {
-                "Supplier": "Big Mangoes",
-                "Fruit": "Mango",
-                "Quantity": "3"
-            },
-            {
-                "Supplier": "Small Strawberries",
-                "Fruit": "Strawberry",
-                "Quantity": "4"
-            }
-        ]
-
-    CSV file contents:
-
-    .. code-block:: bash
-
-            Supplier,Fruit,Quantity
-            Big Apple,Apple,1
-            Big Melons,Melons,2
-            Long Mangoes,Mango,3
-            Small Strawberries,Strawberry,4
+    .. include:: examples/csvio.fieldprocessor.rst
+        :start-after: start-csvreader_field_processor
+        :end-before: end-csvreader_field_processor
 
     """
 
     def __init__(
         self,
         filename: str,
-        fieldprocessor: ProcessorBase = None,
+        fieldprocessor: FieldProcessor = None,
         fieldnames: FN = [],
         open_kwargs: KW = {},
         csv_kwargs: KW = {},

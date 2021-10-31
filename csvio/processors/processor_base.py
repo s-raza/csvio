@@ -6,6 +6,9 @@ from ..utils.types import PF, RS, R
 
 
 class ProcessorBase:
+    """
+    Processor Base Class
+    """
 
     processors: Dict[str, Dict[str, List[PF]]] = {}
 
@@ -20,6 +23,25 @@ class ProcessorBase:
     def add_processor(
         self, fieldname: str, func_: Union[List[PF], PF], handle: str = None
     ) -> None:
+
+        """
+        Add a processor to process fields in a row.
+
+        :param fieldname: Name of the field upon which the processor should be
+            executed.
+        :type fieldname: required
+
+        :param func_: Field processor function reference or a list of such
+            function references.
+            All function references added with the same handle will be executed
+            for the field in the same order as they are added.
+        :type func_: required
+
+        :param handle: Processor reference handle to which the processor will
+            be added.
+            If not provided, the handle of the current object will be used.
+        :type handle: optional
+        """
 
         handle = handle or self.handle
 
