@@ -16,6 +16,8 @@
     Dark Berries,Strawberry,Australia,9
     Sweet Berries,Blackcurrant,Australia,10
 
+.. _add_processor_usage:
+
 *Processor function definitions*
 
 .. code-block:: python

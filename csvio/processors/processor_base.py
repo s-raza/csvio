@@ -34,13 +34,18 @@ class ProcessorBase:
         :param func_: Field processor function reference or a list of such
             function references.
             All function references added with the same handle will be executed
-            for the field in the same order as they are added.
+            for the field, to transform its value in the same order as they are
+            added.
         :type func_: required
 
         :param handle: Processor reference handle to which the processor will
             be added.
             If not provided, the handle of the current object will be used.
         :type handle: optional
+
+        See :ref:`example code <csvreader_fp_usage>` for using with
+        :py:class:`~csvio.CSVReader`
+
         """
 
         handle = handle or self.handle
@@ -55,6 +60,20 @@ class ProcessorBase:
     def process_row(
         self, row: R, processor_handle: Union[Type[ProcessorBase], str] = None
     ) -> R:
+        """
+        Process a single row
+
+        :param row: A single dictionary of ``fieldname->value`` pairs
+            representing a single row
+        :type row: required
+
+        :param processor_handle: A processor handle or an object that
+            references the processor functions to apply and transform the row
+            values. The processor functions of the current object are used if
+            this argument is not provided.
+        :type processor_handle: optional
+
+        """
 
         applied_handle = processor_handle or self.handle
 
@@ -77,4 +96,18 @@ class ProcessorBase:
         return ret_row
 
     def process_rows(self, rows: RS, processor_handle: str = None) -> RS:
+        """
+        Process a list of rows
+
+        :param row: A list of dictionaries of ``fieldname->value`` pairs
+            representing a list of rows
+        :type row: required
+
+        :param processor_handle: A processor handle or an object that
+            references the processor functions to apply and transform the row
+            values. The processor functions of the current object are used if
+            this argument is not provided.
+        :type processor_handle: optional
+
+        """
         return [self.process_row(row, processor_handle) for row in rows]

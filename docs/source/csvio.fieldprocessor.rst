@@ -20,7 +20,9 @@ See :ref:`example code <csvreader_fp_usage>` for further details.
 Similarly, in the case where a Field Processor Object is passed to the
 constructor of :py:class:`~csvio.CSVWriter`, it is applied to the rows of the
 :py:class:`~csvio.CSVWriter` as soon as they are added for writing to the
-output CSV using the :py:func:`~csvio.CSVWriter.add_rows` method.
+output CSV using its :py:func:`~csvio.CSVWriter.add_rows` method.
+
+.. _standalone_fp_usage:
 
 **Standalone Example Usage**
 
