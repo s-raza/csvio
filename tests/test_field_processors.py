@@ -93,3 +93,20 @@ def test_field_processors_csv_reader(tmp_path):
     _, reader = get_csv_reader_writer(tmp_path, {"fieldprocessor": proc1})
 
     assert reader.rows == result
+
+
+def test_field_processors_csv_writer(tmp_path):
+
+    proc1 = FieldProcessor("proc1")
+
+    proc1.add_processor("Quantity", [cast_to_int, add1])
+    proc1.add_processor("Supplier", replace_big_huge)
+    proc1.add_processor("Origin", lambda x: x.upper())
+    proc1.add_processor(
+        "Supplier", lambda x: x.replace("Strawberries", "Strawberry")
+    )
+    proc1.add_processor("Supplier", lambda x: x.replace("Huge", "Enormous"))
+
+    writer, _ = get_csv_reader_writer(tmp_path, {}, {"fieldprocessor": proc1})
+
+    assert writer.rows == result
