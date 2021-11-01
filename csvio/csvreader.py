@@ -23,9 +23,10 @@
 # SOFTWARE.
 import csv
 import traceback
-from typing import Any, Dict, List
 
 from .csvbase import CSVBase
+from .processors import FieldProcessor
+from .utils.types import FN, KW, RS, R
 
 
 class CSVReader(CSVBase):
@@ -45,6 +46,14 @@ class CSVReader(CSVBase):
         *filename* argument of this Class's constructor.
     :type fieldnames: optional
 
+    :param fieldprocessor:
+        An instance of the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object. The processor functions defined in the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object are applied to the rows in the CSV after they read.
+    :type fieldprocessor: optional
+
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
@@ -55,71 +64,40 @@ class CSVReader(CSVBase):
         DictReader constructor within this class.
     :type csv_kwargs: optional
 
-    Usage:
+    **CSVReader usage without** ``fieldprocessor``:
 
-    .. doctest::
+    .. include:: examples/csvio.csvreader.rst
+        :start-after: start-csvreader
+        :end-before: end-csvreader
 
-        >>> from csvio import CSVReader
-        >>> reader = CSVReader("fruit_stock.csv")
-        >>> reader.fieldnames
-        ['Supplier', 'Fruit', 'Quantity']
+    .. _csvreader_fp_usage:
 
-        >>> len(reader.rows)
-        4
+    **CSVReader usage with** ``fieldprocessor``
 
-        >>> import json
-        >>> print(json.dumps(reader.rows, indent=4))
-        [
-            {
-                "Supplier": "Big Apple",
-                "Fruit": "Apple",
-                "Quantity": "1"
-            },
-            {
-                "Supplier": "Big Melons",
-                "Fruit": "Melons",
-                "Quantity": "2"
-            },
-            {
-                "Supplier": "Big Mangoes",
-                "Fruit": "Mango",
-                "Quantity": "3"
-            },
-            {
-                "Supplier": "Small Strawberries",
-                "Fruit": "Strawberry",
-                "Quantity": "4"
-            }
-        ]
-
-    CSV file contents:
-
-    .. code-block:: bash
-
-            Supplier,Fruit,Quantity
-            Big Apple,Apple,1
-            Big Melons,Melons,2
-            Long Mangoes,Mango,3
-            Small Strawberries,Strawberry,4
+    .. include:: examples/csvio.fieldprocessor.rst
+        :start-after: start-csvreader_field_processor
+        :end-before: end-csvreader_field_processor
 
     """
 
     def __init__(
         self,
         filename: str,
-        fieldnames: List[str] = [],
-        open_kwargs: Dict[str, str] = {},
-        csv_kwargs: Dict[str, Any] = {},
+        fieldprocessor: FieldProcessor = None,
+        fieldnames: FN = [],
+        open_kwargs: KW = {},
+        csv_kwargs: KW = {},
     ) -> None:
 
         super().__init__(filename, open_kwargs, csv_kwargs)
 
+        self.field_processor = fieldprocessor
         self.fieldnames = fieldnames or self.__get_fieldnames()
         self.rows = self.__get_rows()
 
-    def __get_fieldnames(self) -> List[str]:
+    def __get_fieldnames(self) -> FN:
 
-        fieldnames: List[str] = []
+        fieldnames: FN = []
 
         try:
             with open(self.filepath, "r", **self.open_kwargs) as fh:
@@ -132,9 +110,9 @@ class CSVReader(CSVBase):
 
         return fieldnames
 
-    def __get_rows(self) -> List[Dict[str, Any]]:
+    def __get_rows(self) -> RS:
 
-        rows: List[Dict[str, Any]] = []
+        rows: RS = []
 
         try:
             with open(self.filepath, "r", **self.open_kwargs) as fh:
@@ -146,12 +124,15 @@ class CSVReader(CSVBase):
 
                 for row in csv_reader:
 
-                    row_dict: Dict[str, Any] = {}
+                    row_dict: R = {}
 
                     for fieldname in self.fieldnames:
                         row_dict[fieldname] = row[fieldname]
 
-                    rows.append(row_dict)
+                    if self.field_processor is not None:
+                        rows.append(self.field_processor.process_row(row_dict))
+                    else:
+                        rows.append(row_dict)
 
         except csv.Error:
 
