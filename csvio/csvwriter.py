@@ -26,6 +26,7 @@ import traceback
 from typing import Any, Dict, Union
 
 from .csvbase import CSVBase
+from .processors import FieldProcessor
 from .utils.types import FN, RS, R
 
 
@@ -57,11 +58,14 @@ class CSVWriter(CSVBase):
         self,
         filename: str,
         fieldnames: FN,
+        fieldprocessor: FieldProcessor = None,
         open_kwargs: Dict[str, str] = {},
         csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
         super().__init__(filename, open_kwargs, csv_kwargs)
+
+        self.field_processor = fieldprocessor
 
         self._pending_rows: RS = []
         self.fieldnames: FN = fieldnames
@@ -147,8 +151,10 @@ class CSVWriter(CSVBase):
         else:
             return None
 
-        for row in rows:
-            self.pending_rows.append(row)
+        if self.field_processor is not None:
+            self.pending_rows.extend(self.field_processor.process_rows(rows))
+        else:
+            self.pending_rows.extend(rows)
 
     def __write_rows(self) -> None:
 
