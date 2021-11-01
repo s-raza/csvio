@@ -24,6 +24,7 @@
 from typing import Any, Dict, List
 
 from .filebase import FileBase
+from .utils.types import FN, KW, RS
 
 
 class CSVBase(FileBase):
@@ -48,8 +49,8 @@ class CSVBase(FileBase):
     def __init__(
         self,
         filename: str,
-        open_kwargs: Dict[str, Any] = {},
-        csv_kwargs: Dict[str, Any] = {},
+        open_kwargs: KW = {},
+        csv_kwargs: KW = {},
     ) -> None:
 
         super().__init__(filename)
@@ -57,11 +58,11 @@ class CSVBase(FileBase):
         self._open_kwargs = open_kwargs
         self._csv_kwargs = csv_kwargs
 
-        self._fieldnames: List[str] = []
-        self._rows: List[Dict[str, Any]] = []
+        self._fieldnames: FN = []
+        self._rows: RS = []
 
     @property
-    def open_kwargs(self) -> Dict[str, Any]:
+    def open_kwargs(self) -> KW:
         """
         :return: A dictionary of key, value pairs that should be passed to the
             open method within this class.
@@ -69,7 +70,7 @@ class CSVBase(FileBase):
         return self._open_kwargs
 
     @property
-    def csv_kwargs(self) -> Dict[str, Any]:
+    def csv_kwargs(self) -> KW:
         """
         :return: A dictionary of key, value pairs that should be passed to the
             DictReader constructor within this class.
@@ -77,18 +78,18 @@ class CSVBase(FileBase):
         return self._csv_kwargs
 
     @property
-    def fieldnames(self) -> List[str]:
+    def fieldnames(self) -> FN:
         """
         :return: List of column headings
         """
         return list(self._fieldnames)
 
     @fieldnames.setter
-    def fieldnames(self, fieldnames: List[str]) -> None:
+    def fieldnames(self, fieldnames: FN) -> None:
         self._fieldnames = fieldnames
 
     @property
-    def rows(self) -> List[Dict[str, Any]]:
+    def rows(self) -> RS:
         """
         :return: A list of dictionaries where each item in it represents a row
             in the CSV file. Each dictionary in the list maps the column
@@ -97,7 +98,7 @@ class CSVBase(FileBase):
         return self._rows
 
     @rows.setter
-    def rows(self, rows: List[Dict[str, Any]]) -> None:
+    def rows(self, rows: RS) -> None:
         self._rows = rows
 
     @property
@@ -109,7 +110,7 @@ class CSVBase(FileBase):
         return len(self.rows)
 
     def _init_kwargs_dict(
-        self, dict_to_update: Dict[str, Any], args_dict: Dict[str, Any]
+        self, dict_to_update: Dict[str, Any], args_dict: KW
     ) -> None:
 
         for arg, value in args_dict.items():
@@ -118,8 +119,8 @@ class CSVBase(FileBase):
                 dict_to_update[arg] = value
 
     def rows_from_column_key(
-        self, column_name: str, rows: List[Dict[str, Any]] = None
-    ) -> Dict[str, List[Dict[str, Any]]]:
+        self, column_name: str, rows: RS = None
+    ) -> Dict[str, RS]:
         """
         Collect all the rows in the ``rows`` parameter that have the same
         values for the column defined in the ``column_name`` parameter, and
@@ -141,7 +142,7 @@ class CSVBase(FileBase):
         :return: A dictionary constructed using the logic as explained above.
         """
 
-        ret_dict: Dict[str, Any] = {}
+        ret_dict: Dict[str, RS] = {}
         rows = rows or self.rows
 
         for row in rows:
@@ -150,7 +151,7 @@ class CSVBase(FileBase):
         return ret_dict
 
     def rows_to_nested_dicts(
-        self, column_order: List[str], rows: List[Dict[str, Any]] = None
+        self, column_order: List[str], rows: RS = None
     ) -> Dict[str, Any]:
         """
         Collect all values of columns that are the same and construct a nested

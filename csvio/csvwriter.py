@@ -23,9 +23,11 @@
 # SOFTWARE.
 import csv
 import traceback
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, Union
 
 from .csvbase import CSVBase
+from .processors import FieldProcessor
+from .utils.types import FN, RS, R
 
 
 class CSVWriter(CSVBase):
@@ -39,6 +41,15 @@ class CSVWriter(CSVBase):
         A list of strings representing the column headings for the CSV
         file.
     :type fieldnames: required
+
+    :param fieldprocessor:
+        An instance of the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object. The processor functions defined in the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object are applied to the rows as soon as they are added for writing to
+        the output CSV using :py:func:`~csvio.CSVWriter.add_rows` method
+    :type fieldprocessor: optional
 
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
@@ -55,26 +66,29 @@ class CSVWriter(CSVBase):
     def __init__(
         self,
         filename: str,
-        fieldnames: List[str],
+        fieldnames: FN,
+        fieldprocessor: FieldProcessor = None,
         open_kwargs: Dict[str, str] = {},
         csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
         super().__init__(filename, open_kwargs, csv_kwargs)
 
-        self._pending_rows: List[Dict[str, Any]] = []
-        self.fieldnames: List[str] = fieldnames
+        self.field_processor = fieldprocessor
+
+        self._pending_rows: RS = []
+        self.fieldnames: FN = fieldnames
         self._fieldnames_written: bool = False
 
     @property
-    def pending_rows(self) -> List[Dict[str, Any]]:
+    def pending_rows(self) -> RS:
         """
         :return: List of rows not flushed yet and are pending to be written
         """
         return self._pending_rows
 
     @pending_rows.setter
-    def pending_rows(self, rows: List[Dict[str, Any]]) -> None:
+    def pending_rows(self, rows: RS) -> None:
         self._pending_rows = rows
 
     def __write_field_headings(self) -> bool:
@@ -97,9 +111,7 @@ class CSVWriter(CSVBase):
         else:
             return False
 
-    def add_rows(
-        self, rows: Union[Dict[str, Any], List[Dict[str, Any]]]
-    ) -> None:
+    def add_rows(self, rows: Union[R, RS]) -> None:
         """
         Add rows for writing to the output CSV.
 
@@ -115,29 +127,19 @@ class CSVWriter(CSVBase):
             row(s) to be written to the output CSV.
         :type rows: required
 
-        Usage:
+        **CSVWriter usage without** ``fieldprocessor``:
 
-        .. doctest::
+        .. include:: examples/csvio.csvwriter.rst
+            :start-after: start-csvwriter_add_rows
+            :end-before: end-csvwriter_add_rows
 
-            >>> from csvio import CSVWriter
-            >>> writer = CSVWriter("fruit_stock.csv", fieldnames=["Supplier", "Fruit", "Quantity"])
-            >>> row1 = {"Supplier": "Big Apple", "Fruit": "Apple", "Quantity": 1}
-            >>> writer.add_rows(row1)
-            >>> rows2_3_4 = [
-            ...     {"Supplier": "Big Melons", "Fruit": "Melons", "Quantity": 2},
-            ...     {"Supplier": "Long Mangoes", "Fruit": "Mango", "Quantity": 3},
-            ...     {"Supplier": "Small Strawberries", "Fruit": "Strawberry", "Quantity": 4}
-            ... ]
-            >>> writer.add_rows(rows2_3_4)
-            >>> len(writer.pending_rows)
-            4
+        .. _csvwriter_fp_usage:
 
-            >>> len(writer.rows)
-            0
+        **CSVWriter usage with** ``fieldprocessor``:
 
-        Notice that the :py:attr:`csvio.CSVWriter.rows` property is still
-        empty. This property is incremented by the number of currently pending
-        rows once they are flushed.
+        .. include:: examples/csvio.csvwriter.rst
+            :start-after: start-csvwriter_fp_add_rows
+            :end-before: end-csvwriter_fp_add_rows
 
         """
 
@@ -148,8 +150,10 @@ class CSVWriter(CSVBase):
         else:
             return None
 
-        for row in rows:
-            self.pending_rows.append(row)
+        if self.field_processor is not None:
+            self.pending_rows.extend(self.field_processor.process_rows(rows))
+        else:
+            self.pending_rows.extend(rows)
 
     def __write_rows(self) -> None:
 

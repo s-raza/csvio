@@ -17,7 +17,7 @@ CSV Contents: *fruit_stock.csv*
     Dark Berries,Strawberry,Australia,9
     Sweet Berries,Blackcurrant,Australia,10
 
-Create dictionary with hierarchy ``{"Fruit": [rows]}``
+*Create dictionary with hierarchy* ``{"Fruit": [rows]}``
 
 .. code-block:: python
 
@@ -35,7 +35,7 @@ Create dictionary with hierarchy ``{"Fruit": [rows]}``
 
 Output:
 
-.. code-block:: python
+.. code-block:: bash
 
     {
         "Apple": [
@@ -110,7 +110,7 @@ Output:
         ]
     }
 
-Create dictionary with hierarchy ``{"Fruit": "Origin" : [rows]}``
+*Create dictionary with hierarchy* ``{"Fruit": "Origin" : [rows]}``
 
 .. code-block:: python
 
@@ -127,7 +127,7 @@ Create dictionary with hierarchy ``{"Fruit": "Origin" : [rows]}``
 
 Output:
 
-.. code-block:: python
+.. code-block:: bash
 
     {
         "Apple": {
@@ -220,7 +220,7 @@ Output:
         }
     }
 
-Construct a dictionary with number of rows for each unique "Origin"
+*Construct a dictionary with number of rows for each unique* ``Origin``
 
 .. code-block:: python
 
@@ -241,7 +241,7 @@ Construct a dictionary with number of rows for each unique "Origin"
 
 Output:
 
-.. code-block:: python
+.. code-block:: bash
 
     {
         "Spain": 2,
