@@ -42,6 +42,15 @@ class CSVWriter(CSVBase):
         file.
     :type fieldnames: required
 
+    :param fieldprocessor:
+        An instance of the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object. The processor functions defined in the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object are applied to the rows as soon as they are added for writing to
+        the output CSV using :py:func:`~csvio.CSVWriter.add_rows` method
+    :type fieldprocessor: optional
+
     :param open_kwargs:
         A dictionary of key, value pairs that should be passed to the open
         method within this class.
@@ -118,29 +127,19 @@ class CSVWriter(CSVBase):
             row(s) to be written to the output CSV.
         :type rows: required
 
-        Usage:
+        **CSVWriter usage without** ``fieldprocessor``:
 
-        .. doctest::
+        .. include:: examples/csvio.csvwriter.rst
+            :start-after: start-csvwriter_add_rows
+            :end-before: end-csvwriter_add_rows
 
-            >>> from csvio import CSVWriter
-            >>> writer = CSVWriter("fruit_stock.csv", fieldnames=["Supplier", "Fruit", "Quantity"])
-            >>> row1 = {"Supplier": "Big Apple", "Fruit": "Apple", "Quantity": 1}
-            >>> writer.add_rows(row1)
-            >>> rows2_3_4 = [
-            ...     {"Supplier": "Big Melons", "Fruit": "Melons", "Quantity": 2},
-            ...     {"Supplier": "Long Mangoes", "Fruit": "Mango", "Quantity": 3},
-            ...     {"Supplier": "Small Strawberries", "Fruit": "Strawberry", "Quantity": 4}
-            ... ]
-            >>> writer.add_rows(rows2_3_4)
-            >>> len(writer.pending_rows)
-            4
+        .. _csvwriter_fp_usage:
 
-            >>> len(writer.rows)
-            0
+        **CSVWriter usage with** ``fieldprocessor``:
 
-        Notice that the :py:attr:`csvio.CSVWriter.rows` property is still
-        empty. This property is incremented by the number of currently pending
-        rows once they are flushed.
+        .. include:: examples/csvio.csvwriter.rst
+            :start-after: start-csvwriter_fp_add_rows
+            :end-before: end-csvwriter_fp_add_rows
 
         """
 

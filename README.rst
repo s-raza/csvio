@@ -75,7 +75,7 @@ Reading CSVs
       }
    ]
 
-CSV file contents:
+*CSV file contents:*
 
 .. code-block:: bash
 
@@ -125,3 +125,5 @@ written with the following contents.
       Small Strawberries,Strawberry,4
 
 .. ignore-below-marker
+
+`Readthedocs for more example code <https://csvio.readthedocs.io>`_

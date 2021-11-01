@@ -47,8 +47,10 @@ class CSVReader(CSVBase):
     :type fieldnames: optional
 
     :param fieldprocessor:
-        An instance of the :py:class:`~csvio.processors.field_processor.FieldProcessor`
-        object. The processor functions defined in the :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        An instance of the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
+        object. The processor functions defined in the
+        :py:class:`~csvio.processors.field_processor.FieldProcessor`
         object are applied to the rows in the CSV after they read.
     :type fieldprocessor: optional
 
@@ -62,7 +64,7 @@ class CSVReader(CSVBase):
         DictReader constructor within this class.
     :type csv_kwargs: optional
 
-    **CSVReader Usage without** ``fieldprocessor``:
+    **CSVReader usage without** ``fieldprocessor``:
 
     .. include:: examples/csvio.csvreader.rst
         :start-after: start-csvreader
@@ -70,7 +72,7 @@ class CSVReader(CSVBase):
 
     .. _csvreader_fp_usage:
 
-    **CSVReader Usage with** ``fieldprocessor``
+    **CSVReader usage with** ``fieldprocessor``
 
     .. include:: examples/csvio.fieldprocessor.rst
         :start-after: start-csvreader_field_processor

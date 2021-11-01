@@ -43,8 +43,13 @@ class ProcessorBase:
             If not provided, the handle of the current object will be used.
         :type handle: optional
 
+        :return: None
+
         See :ref:`example code <csvreader_fp_usage>` for using with
         :py:class:`~csvio.CSVReader`
+
+        See :ref:`example code <csvwriter_fp_usage>` for using with
+        :py:class:`~csvio.CSVWriter`
 
         """
 
@@ -72,6 +77,8 @@ class ProcessorBase:
             values. The processor functions of the current object are used if
             this argument is not provided.
         :type processor_handle: optional
+
+        :return: A dictionary representing a processed CSV row
 
         """
 
@@ -108,6 +115,8 @@ class ProcessorBase:
             values. The processor functions of the current object are used if
             this argument is not provided.
         :type processor_handle: optional
+
+        :return: A list of dictionaries representing processed CSV rows
 
         """
         return [self.process_row(row, processor_handle) for row in rows]

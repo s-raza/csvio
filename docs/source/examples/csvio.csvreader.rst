@@ -39,10 +39,10 @@
 
 .. code-block:: bash
 
-        Supplier,Fruit,Quantity
-        Big Apple,Apple,1
-        Big Melons,Melons,2
-        Long Mangoes,Mango,3
-        Small Strawberries,Strawberry,4
+    Supplier,Fruit,Quantity
+    Big Apple,Apple,1
+    Big Melons,Melons,2
+    Long Mangoes,Mango,3
+    Small Strawberries,Strawberry,4
 
 .. end-csvreader
