@@ -1,6 +1,6 @@
 from typing import List, Type, Union
 
-from ..utils.types import PF, R
+from ..utils.types import FP, R
 from .processor_base import ProcessorBase
 
 
@@ -15,7 +15,7 @@ class FieldProcessor(ProcessorBase):
         super().__init__(handle)
 
     def add_processor(
-        self, fieldname: str, func_: Union[List[PF], PF], handle: str = None
+        self, fieldname: str, func_: Union[List[FP], FP], handle: str = None
     ) -> None:
 
         """
