@@ -14,6 +14,9 @@ class FieldProcessor(ProcessorBase):
 
         super().__init__(handle)
 
+    def add_processor_handle(self, handle: str) -> None:
+        ProcessorBase.processors[handle] = {}
+
     def add_processor(
         self, fieldname: str, func_: Union[List[FP], FP], handle: str = None
     ) -> None:

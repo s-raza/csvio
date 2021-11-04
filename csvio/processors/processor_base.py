@@ -18,8 +18,9 @@ class ProcessorBase(ABC):
         self.handle: str = handle
         self.add_processor_handle(handle)
 
+    @abstractmethod
     def add_processor_handle(self, handle: str) -> None:
-        ProcessorBase.processors[handle] = {}
+        pass
 
     @abstractmethod
     def process_row(
