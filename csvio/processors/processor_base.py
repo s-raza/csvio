@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Dict, List, Type, Union
+from typing import Any, Dict, Type, Union
 
-from ..utils.types import PF, RS, R
+from ..utils.types import RS, R
 
 
 class ProcessorBase(ABC):
@@ -11,7 +11,7 @@ class ProcessorBase(ABC):
     Processor Base Class
     """
 
-    processors: Dict[str, Dict[str, List[PF]]] = {}
+    processors: Dict[str, Any] = {}
 
     def __init__(self, handle: str) -> None:
 
