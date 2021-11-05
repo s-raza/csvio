@@ -26,8 +26,8 @@ class RowProcessor(ProcessorBase):
         The processor function reference is essentially a callback function
         that accepts a single argument that represents a row.
 
-        The ``fieldnames`` from a CSV are used within this callback function as
-        the keys to this single argument that represents a row to access its
+        The ``fieldnames`` from a CSV can be used within this callback function
+        as the keys to this single argument that represents a row to access its
         values and perform the required transformations. This callback function
         should return a dictionary representing a row, once all the required
         transformations are applied.
@@ -36,8 +36,9 @@ class RowProcessor(ProcessorBase):
             function references.
             All function references added with the same handle will be executed
             for the row, to transform its value in the same order as they are
-            added. Usually a single processor function maybe sufficient to
-            perform all the transformations that are required for a row.
+            added. A single processor function will be sufficient to
+            perform all the transformations for the rows in a CSV, if it has
+            all the transformation operations required in its definition.
         :type func_: required
 
         :param handle: Processor reference handle to which the processor will

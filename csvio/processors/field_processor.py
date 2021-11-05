@@ -22,14 +22,24 @@ class FieldProcessor(ProcessorBase):
     ) -> None:
 
         """
-        Add a processor to process fields in a row.
+        Add a processor function to process fields in a row.
+
+        The processor function reference is essentially a callback function
+        that accepts a single argument that represents the value of the
+        ``fieldname`` argument from the row upon which the processors will be
+        executed.
+
+        The value of the ``fieldname`` argument from the row of a CSV is used
+        within this callback function. This callback function
+        should return a single value that should be set to the value of the
+        ``fieldname`` once all the required transformations are applied.
 
         :param fieldname: Name of the field upon which the processor should be
             executed.
         :type fieldname: required
 
-        :param func_: Field processor function reference or a list of such
-            function references.
+        :param func_: Field processor callback function reference or a list of
+            such function references.
             All function references added with the same handle will be executed
             for the field, to transform its value in the same order as they are
             added.
@@ -64,6 +74,17 @@ class FieldProcessor(ProcessorBase):
     ) -> R:
         """
         Process a single row
+
+        This applies the processors defined using the
+        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`
+        function in the same order that they were added using
+        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`
+
+        The output row after application of the previous processor function
+        is passed on to the next processor function that was added using
+        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`,
+        and the output of the last processor function added is returned as the
+        final output of this function.
 
         :param row: A single dictionary of ``fieldname->value`` pairs
             representing a single row

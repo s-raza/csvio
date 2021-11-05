@@ -1,8 +1,13 @@
 Field Processor
 ================
 
-A Field Processor may be used to transform the values in a row represented by
-a dictionary that maps ``column->value`` pairs.
+A Field Processor is used to transform the values in a row represented by
+a dictionary that maps ``column->value`` pairs. This processor can be used to
+transform the values of particular fields in a row, where the values of other
+fields in the row are not required for making the transformation.
+
+:doc:`Row Processor <csvio.rowprocessor>` can be used to make
+transformations where values of other fields within the same row are required.
 
 In *csvio* a CSV file is represented by a list of dictionaries that is
 populated in the ``rows`` attribute of the :py:class:`~csvio.CSVReader` or

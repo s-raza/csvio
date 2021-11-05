@@ -1,8 +1,8 @@
 Row Processor
 ================
 
-A Row Processor may be used to transform the values of a row represented by
-a dictionary that maps ``column->value`` pairs. This processor can be used in
+A Row Processor is used to transform the values of a row represented by
+a dictionary that maps ``column->value`` pairs. This processor is used in
 situations where you need to transform values of particular fields in a row
 depending upon the values of some other fields within the same row.
 
