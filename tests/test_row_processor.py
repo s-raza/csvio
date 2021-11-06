@@ -78,7 +78,7 @@ def update_row(row):
     return row
 
 
-def test_row_processor(tmp_path):
+def test_row_processor_standalone(tmp_path):
 
     _, reader = get_csv_reader_writer(tmp_path)
 
@@ -86,3 +86,23 @@ def test_row_processor(tmp_path):
     rproc.add_processor(update_row)
 
     assert rproc.process_rows(reader.rows) == result
+
+
+def test_row_processor_csv_reader(tmp_path):
+
+    rproc = RowProcessor("rp1")
+    rproc.add_processor(update_row)
+
+    _, reader = get_csv_reader_writer(tmp_path, {"processors": [rproc]})
+
+    assert reader.rows == result
+
+
+def test_row_processor_csv_writer(tmp_path):
+
+    rproc = RowProcessor("rp1")
+    rproc.add_processor(update_row)
+
+    writer, _ = get_csv_reader_writer(tmp_path, {}, {"processors": [rproc]})
+
+    assert writer.rows == result
