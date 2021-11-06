@@ -23,10 +23,10 @@
 # SOFTWARE.
 import csv
 import traceback
-from typing import Any, Dict, Union
+from typing import Any, Dict, List, Union
 
 from .csvbase import CSVBase
-from .processors import FieldProcessor
+from .processors.processor_base import ProcessorBase
 from .utils.types import FN, RS, R
 
 
@@ -67,14 +67,14 @@ class CSVWriter(CSVBase):
         self,
         filename: str,
         fieldnames: FN,
-        fieldprocessor: FieldProcessor = None,
+        processors: List[ProcessorBase] = None,
         open_kwargs: Dict[str, str] = {},
         csv_kwargs: Dict[str, Any] = {},
     ) -> None:
 
         super().__init__(filename, open_kwargs, csv_kwargs)
 
-        self.field_processor = fieldprocessor
+        self.processors = processors
 
         self._pending_rows: RS = []
         self.fieldnames: FN = fieldnames
@@ -150,8 +150,13 @@ class CSVWriter(CSVBase):
         else:
             return None
 
-        if self.field_processor is not None:
-            self.pending_rows.extend(self.field_processor.process_rows(rows))
+        if self.processors:
+
+            temp_rows = rows
+
+            for processor in self.processors:
+                temp_rows = processor.process_rows(temp_rows)
+                self.pending_rows.extend(temp_rows)
         else:
             self.pending_rows.extend(rows)
 
