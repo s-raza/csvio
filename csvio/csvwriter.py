@@ -156,7 +156,8 @@ class CSVWriter(CSVBase):
 
             for processor in self.processors:
                 temp_rows = processor.process_rows(temp_rows)
-                self.pending_rows.extend(temp_rows)
+
+            self.pending_rows.extend(temp_rows)
         else:
             self.pending_rows.extend(rows)
 

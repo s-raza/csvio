@@ -136,7 +136,8 @@ class CSVReader(CSVBase):
 
                         for processor in self.processors:
                             temp_row = processor.process_row(temp_row)
-                            rows.append(temp_row)
+
+                        rows.append(temp_row)
                     else:
                         rows.append(row_dict)
 
