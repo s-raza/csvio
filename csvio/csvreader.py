@@ -65,20 +65,6 @@ class CSVReader(CSVBase):
         DictReader constructor within this class.
     :type csv_kwargs: optional
 
-    **CSVReader usage without** ``fieldprocessor``:
-
-    .. include:: examples/csvio.csvreader.rst
-        :start-after: start-csvreader
-        :end-before: end-csvreader
-
-    .. _csvreader_fp_usage:
-
-    **CSVReader usage with** ``fieldprocessor``
-
-    .. include:: examples/csvio.fieldprocessor.rst
-        :start-after: start-csvreader_field_processor
-        :end-before: end-csvreader_field_processor
-
     """
 
     def __init__(

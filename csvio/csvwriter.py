@@ -127,20 +127,6 @@ class CSVWriter(CSVBase):
             row(s) to be written to the output CSV.
         :type rows: required
 
-        **CSVWriter usage without** ``fieldprocessor``:
-
-        .. include:: examples/csvio.csvwriter.rst
-            :start-after: start-csvwriter_add_rows
-            :end-before: end-csvwriter_add_rows
-
-        .. _csvwriter_fp_usage:
-
-        **CSVWriter usage with** ``fieldprocessor``:
-
-        .. include:: examples/csvio.csvwriter.rst
-            :start-after: start-csvwriter_fp_add_rows
-            :end-before: end-csvwriter_fp_add_rows
-
         """
 
         if isinstance(rows, dict):
