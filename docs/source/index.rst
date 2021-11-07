@@ -1,18 +1,16 @@
 .. include:: ../../README.rst
   :end-before: ignore-below-marker
 
-Apply field processors to transform row values
+Apply processors to transform row values
 ----------------------------------------------
 
-:ref:`Example with <csvreader_fp_usage>` :py:class:`~csvio.CSVReader`
+* :ref:`Field Processor Standalone use <standalone_field_processors_usage>`
 
-:ref:`Example with <csvwriter_fp_usage>` :py:class:`~csvio.CSVWriter`
+* :ref:`Row Processor Standalone use <standalone_row_processors_usage>`
 
-**Standalone use**
+:ref:`Example with <csvreader_processors_usage>` :py:class:`~csvio.CSVReader`
 
-.. include:: examples/csvio.fieldprocessor.rst
-      :start-after: start-standalone_field_processor
-      :end-before: end-standalone_field_processor
+:ref:`Example with <csvwriter_processors_usage>` :py:class:`~csvio.CSVWriter`
 
 Create nested dictionaries with specified path
 ----------------------------------------------

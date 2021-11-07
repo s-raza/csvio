@@ -6,4 +6,4 @@ API Specifications
     csvio.csvbase
     csvio.csvreader
     csvio.csvwriter
-    csvio.fieldprocessor
+    csvio.processors

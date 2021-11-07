@@ -90,7 +90,7 @@ def test_field_processors_csv_reader(tmp_path):
     )
     proc1.add_processor("Supplier", lambda x: x.replace("Huge", "Enormous"))
 
-    _, reader = get_csv_reader_writer(tmp_path, {"fieldprocessor": proc1})
+    _, reader = get_csv_reader_writer(tmp_path, {"processors": [proc1]})
 
     assert reader.rows == result
 
@@ -107,6 +107,6 @@ def test_field_processors_csv_writer(tmp_path):
     )
     proc1.add_processor("Supplier", lambda x: x.replace("Huge", "Enormous"))
 
-    writer, _ = get_csv_reader_writer(tmp_path, {}, {"fieldprocessor": proc1})
+    writer, _ = get_csv_reader_writer(tmp_path, {}, {"processors": [proc1]})
 
     assert writer.rows == result
