@@ -96,7 +96,7 @@ class RowProcessor(ProcessorBase):
 
         processors = ProcessorBase.processors[str(applied_handle)]
 
-        temp_row = row
+        temp_row = dict(row)
 
         for processor_func in processors:
             temp_row = processor_func(temp_row)
