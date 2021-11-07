@@ -9,8 +9,6 @@ CSVReader
 
 .. _csvreader_processors_usage:
 
-**CSVReader use with processors**
-
 .. include:: examples/csvio.processors_combined.rst
     :start-after: start-csvreader_processors
     :end-before: end-csvreader_processors

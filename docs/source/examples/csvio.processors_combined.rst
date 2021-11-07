@@ -3,6 +3,8 @@ CSV Reader/Writer Processors Examples
 
 .. start-csvreader_processors
 
+**CSV Reader with Processors**
+
 *Original CSV Contents: fruit_stock.csv*
 
 .. code-block:: bash
@@ -155,6 +157,8 @@ CSV Reader/Writer Processors Examples
 
 
 .. start-csvwriter_processors
+
+**CSV Writer with Processors**
 
 *Processor function definitions*
 
