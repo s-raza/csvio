@@ -1,84 +1,12 @@
-.. start-csvreader_field_processor
 
-*Original CSV Contents: fruit_stock.csv*
+Standalone Processor Examples
+=============================
 
-.. code-block:: bash
-
-    Supplier,Fruit,Origin,Quantity
-    Big Apples,Apple,Spain,1
-    Big Melons,Melons,Italy,2
-    Long Mangoes,Mango,India,3
-    Small Strawberries,Strawberry,France,4
-    Short Mangoes,Mango,France,5
-    Sweet Strawberries,Strawberry,Spain,6
-    Square Apples,Apple,Italy,7
-    Small Melons,Melons,Italy,8
-    Dark Berries,Strawberry,Australia,9
-    Sweet Berries,Blackcurrant,Australia,10
-
-.. _add_processor_usage:
-
-*Processor function definitions*
-
-.. code-block:: python
-
-    def add1(x):
-        return x + 1
-
-    def cast_to_int(x):
-        return int(x)
-
-    def replace_big_huge(x):
-        return x.replace("Big", "Huge")
-
-*Define and apply processors*
-
-.. code-block:: python
-
-    from csvio import CSVReader, CSVWriter
-    from csvio.processors import FieldProcessor
-
-    processor = FieldProcessor("proc1")
-
-    processor.add_processor("Quantity", [cast_to_int, add1])
-    processor.add_processor("Supplier", replace_big_huge)
-    processor.add_processor("Origin", lambda x: x.upper())
-
-    processor.add_processor(
-        "Supplier", lambda x: x.replace("Strawberries", "Strawberry")
-    )
-
-    processor.add_processor("Supplier", lambda x: x.replace("Huge", "Enormous"))
-
-    reader = CSVReader("fruit_stock.csv", processor)
-
-    writer = CSVWriter(
-        "fruit_stock_processed.csv",
-        fieldnames=reader.fieldnames
-    )
-
-    writer.add_rows(reader.rows)
-    writer.flush()
-
-*CSV Contents after Processing: fruit_stock_processed.csv*
-
-.. code-block:: bash
-
-    Supplier,Fruit,Origin,Quantity
-    Enormous Apples,Apple,SPAIN,2
-    Enormous Melons,Melons,ITALY,3
-    Long Mangoes,Mango,INDIA,4
-    Small Strawberry,Strawberry,FRANCE,5
-    Short Mangoes,Mango,FRANCE,6
-    Sweet Strawberry,Strawberry,SPAIN,7
-    Square Apples,Apple,ITALY,8
-    Small Melons,Melons,ITALY,9
-    Dark Berries,Strawberry,AUSTRALIA,10
-    Sweet Berries,Blackcurrant,AUSTRALIA,11
-
-.. end-csvreader_field_processor
+.. _standalone_field_processors_usage:
 
 .. start-standalone_field_processor
+
+**Field Processor Standalone use**
 
 *Processor function definitions*
 
@@ -285,3 +213,117 @@ Similarly we can also pass any other processor object instead of a handle.
     ]
 
 .. end-standalone_field_processor
+
+.. _standalone_row_processors_usage:
+
+.. start-standalone_row_processor
+
+**Row Processor Standalone use**
+
+*Processor function definitions*
+
+.. code-block:: python
+
+    def update_row(row):
+
+        row["Supplier"] = f"{row['Supplier']} ({row['Origin']})"
+
+        row["Quantity"] = int(row["Quantity"])
+
+        if row["Quantity"] > 2:
+            row["Quantity"] += 1
+
+        return row
+
+*Row processor and sample rows*
+
+.. code-block:: python
+
+    from csvio.processors import RowProcessor
+    from json import dumps
+
+    row1 = {
+        "Supplier": "Big Apples",
+        "Fruit": "Apple",
+        "Origin": "Spain",
+        "Quantity": "1"
+    }
+
+    row2 = {
+        "Supplier": "Big Melons",
+        "Fruit": "Melons",
+        "Origin": "Italy",
+        "Quantity": "2"
+    }
+
+    row3 = {
+        "Supplier": "Long Mangoes",
+        "Fruit": "Mango",
+        "Origin": "India",
+        "Quantity": "3"
+    }
+
+    rows = [row1, row2, row3]
+
+    rowproc = RowProcessor("rp1")
+
+    rowproc.add_processor(update_row)
+
+    processed_rows = rowproc.process_rows(rows)
+
+    print("Before:")
+    print(dumps(rows, indent=4))
+    print()
+
+    print("After:")
+    print(dumps(processed_rows, indent=4))
+
+*Output*
+
+.. code-block:: bash
+
+    Before:
+    [
+        {
+            "Supplier": "Big Apples",
+            "Fruit": "Apple",
+            "Origin": "Spain",
+            "Quantity": "1"
+        },
+        {
+            "Supplier": "Big Melons",
+            "Fruit": "Melons",
+            "Origin": "Italy",
+            "Quantity": "2"
+        },
+        {
+            "Supplier": "Long Mangoes",
+            "Fruit": "Mango",
+            "Origin": "India",
+            "Quantity": "3"
+        }
+    ]
+
+    After:
+    [
+        {
+            "Supplier": "Big Apples (Spain)",
+            "Fruit": "Apple",
+            "Origin": "Spain",
+            "Quantity": 1
+        },
+        {
+            "Supplier": "Big Melons (Italy)",
+            "Fruit": "Melons",
+            "Origin": "Italy",
+            "Quantity": 2
+        },
+        {
+            "Supplier": "Long Mangoes (India)",
+            "Fruit": "Mango",
+            "Origin": "India",
+            "Quantity": 4
+        }
+    ]
+
+.. end-standalone_row_processor

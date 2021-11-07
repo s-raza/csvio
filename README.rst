@@ -41,6 +41,16 @@ Documentation
 Reading CSVs
 ------------
 
+*CSV file contents:*
+
+.. code-block:: bash
+
+   Supplier,Fruit,Quantity
+   Big Apple,Apple,1
+   Big Melons,Melons,2
+   Long Mangoes,Mango,3
+   Small Strawberries,Strawberry,4
+
 .. code-block:: python
 
    >>> from csvio import CSVReader
@@ -74,16 +84,6 @@ Reading CSVs
             "Quantity": "4"
       }
    ]
-
-*CSV file contents:*
-
-.. code-block:: bash
-
-   Supplier,Fruit,Quantity
-   Big Apple,Apple,1
-   Big Melons,Melons,2
-   Long Mangoes,Mango,3
-   Small Strawberries,Strawberry,4
 
 Writing CSVs
 ------------

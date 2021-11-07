@@ -1,12 +1,12 @@
 from typing import List, Type, Union
 
-from ..utils.types import FP, R
+from ..utils.types import RP, R
 from .processor_base import ProcessorBase
 
 
-class FieldProcessor(ProcessorBase):
+class RowProcessor(ProcessorBase):
     """
-    :param handle: Reference handle for the field processor
+    :param handle: Reference handle for the row processor
     :type handle: required
     """
 
@@ -15,34 +15,30 @@ class FieldProcessor(ProcessorBase):
         super().__init__(handle)
 
     def add_processor_handle(self, handle: str) -> None:
-        ProcessorBase.processors[handle] = {}
+        ProcessorBase.processors[handle] = []
 
     def add_processor(
-        self, fieldname: str, func_: Union[List[FP], FP], handle: str = None
+        self, func_: Union[List[RP], RP], handle: str = None
     ) -> None:
-
         """
-        Add a processor function to process fields in a row.
+        Add a processor function to process rows.
 
         The processor function reference is essentially a callback function
-        that accepts a single argument that represents the value of the
-        ``fieldname`` argument from the row upon which the processors will be
-        executed.
+        that accepts a single argument that represents a row.
 
-        The value of the ``fieldname`` argument from the row of a CSV is used
-        within this callback function. This callback function
-        should return a single value that should be set to the value of the
-        ``fieldname`` once all the required transformations are applied.
+        The ``fieldnames`` from a CSV can be used within this callback function
+        as the keys to this single argument that represents a row to access its
+        values and perform the required transformations. This callback function
+        should return a dictionary representing a row, once all the required
+        transformations are applied.
 
-        :param fieldname: Name of the field upon which the processor should be
-            executed.
-        :type fieldname: required
-
-        :param func_: Field processor callback function reference or a list of
-            such function references.
+        :param func_: Row processor callback function reference or a list of such
+            function references.
             All function references added with the same handle will be executed
-            for the field, to transform its value in the same order as they are
-            added.
+            for the row, to transform its value in the same order as they are
+            added. A single processor function will be sufficient to
+            perform all the transformations for the rows in a CSV, if it has
+            all the transformation operations required in its definition.
         :type func_: required
 
         :param handle: Processor reference handle to which the processor will
@@ -65,24 +61,22 @@ class FieldProcessor(ProcessorBase):
         if not isinstance(func_, list):
             func_ = [func_]
 
-        ProcessorBase.processors[handle].setdefault(fieldname, []).extend(
-            func_
-        )
+        ProcessorBase.processors[handle].extend(func_)
 
     def process_row(
         self, row: R, processor_handle: Union[Type[ProcessorBase], str] = None
     ) -> R:
         """
-        Process a single row
+        Process a single row.
 
         This applies the processors defined using the
-        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`
+        :py:func:`~csvio.processors.row_processor.RowProcessor.add_processor`
         function in the same order that they were added using
-        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`
+        :py:func:`~csvio.processors.row_processor.RowProcessor.add_processor`
 
         The output row after application of the previous processor function
         is passed on to the next processor function that was added using
-        :py:func:`~csvio.processors.field_processor.FieldProcessor.add_processor`,
+        :py:func:`~csvio.processors.row_processor.RowProcessor.add_processor`,
         and the output of the last processor function added is returned as the
         final output of this function.
 
@@ -94,6 +88,7 @@ class FieldProcessor(ProcessorBase):
             references the processor functions to apply and transform the row
             values. The processor functions of the current object are used if
             this argument is not provided.
+
         :type processor_handle: optional
 
         :return: A dictionary representing a processed CSV row
@@ -107,15 +102,9 @@ class FieldProcessor(ProcessorBase):
 
         processors = ProcessorBase.processors[str(applied_handle)]
 
-        ret_row: R = {}
+        temp_row = dict(row)
 
-        for field, data in row.items():
-            if field in processors:
-                ret_field = data
-                for processor in processors[field]:
-                    ret_field = processor(ret_field)
-                ret_row[field] = ret_field
-            else:
-                ret_row[field] = data
+        for processor_func in processors:
+            temp_row = processor_func(temp_row)
 
-        return ret_row
+        return temp_row
