@@ -48,6 +48,12 @@ class RowProcessor(ProcessorBase):
 
         :return: None
 
+        See :ref:`example code <csvreader_processors_usage>` for using with
+        :py:class:`~csvio.CSVReader`
+
+        See :ref:`example code <csvwriter_processors_usage>` for using with
+        :py:class:`~csvio.CSVWriter`
+
         """
 
         handle = handle or self.handle

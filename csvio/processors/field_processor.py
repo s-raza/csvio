@@ -52,10 +52,10 @@ class FieldProcessor(ProcessorBase):
 
         :return: None
 
-        See :ref:`example code <csvreader_fp_usage>` for using with
+        See :ref:`example code <csvreader_processors_usage>` for using with
         :py:class:`~csvio.CSVReader`
 
-        See :ref:`example code <csvwriter_fp_usage>` for using with
+        See :ref:`example code <csvwriter_processors_usage>` for using with
         :py:class:`~csvio.CSVWriter`
 
         """

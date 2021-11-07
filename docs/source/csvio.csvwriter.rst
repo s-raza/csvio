@@ -1,19 +1,19 @@
 CSVWriter
 =========
 
-**CSVWriter usage without processors**:
+**CSVWriter use without processors**:
 
 .. include:: examples/csvio.csvwriter.rst
-    :start-after: start-csvwriter_add_rows
-    :end-before: end-csvwriter_add_rows
+    :start-after: start-csvwriter
+    :end-before: end-csvwriter
 
-.. _csvwriter_fp_usage:
+.. _csvwriter_processors_usage:
 
-**CSVWriter usage with processors**:
+**CSVWriter use with processors**:
 
-.. include:: examples/csvio.csvwriter.rst
-    :start-after: start-csvwriter_fp_add_rows
-    :end-before: end-csvwriter_fp_add_rows
+.. include:: examples/csvio.processors_combined.rst
+    :start-after: start-csvwriter_processors
+    :end-before: end-csvwriter_processors
 
 .. autoclass:: csvio.CSVWriter
     :show-inheritance:
