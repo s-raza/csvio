@@ -1,0 +1,14 @@
+version: '3'
+services:
+  ftp:
+    container_name: ftp
+    image: bogem/ftp:latest
+    ports:
+      - "21:21"
+      - "47400-47470:47400-47470"
+    environment:
+      - FTP_USER=admin
+      - FTP_PASS=admin
+      - PASV_ADDRESS=127.0.0.1
+    volumes:
+      - ./sample_data:/home/vsftpd/data
