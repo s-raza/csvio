@@ -41,6 +41,7 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []  # type: ignore
 
+autodoc_default_options = {"inherited-members": True, "show-inheritance": True}
 
 # -- Options for HTML output -------------------------------------------------
 

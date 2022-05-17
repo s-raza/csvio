@@ -174,7 +174,7 @@ class CSVBase(FileBase):
 
         Example:
 
-        .. include:: examples/csvio.csvbase.rst
+        .. include:: /examples/csvio.csvbase.rst
             :start-after: start-rows_to_nested_dicts
             :end-before: end-rows_to_nested_dicts
         """

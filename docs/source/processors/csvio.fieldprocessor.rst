@@ -15,22 +15,22 @@ populated in the ``rows`` attribute of the :py:class:`~csvio.CSVReader` or
 
 Once instantiated, a Field Processor Object can be used by itself to process an
 arbitrary dictionary that represents a row or can be passed to the constructors
-of :doc:`CSVReader <csvio.csvreader>` or :doc:`CSVWriter <csvio.csvwriter>`.
+of :doc:`CSVReader </local_rw/csvio.csvreader>` or :doc:`CSVWriter </local_rw/csvio.csvwriter>`.
 
 In the case where a Field Processor Object is passed to the constructor of
-:doc:`CSVReader <csvio.csvreader>`, it is applied to the rows of the
-:doc:`CSVReader <csvio.csvreader>` as soon as they are read from the CSV file.
+:doc:`CSVReader </local_rw/csvio.csvreader>`, it is applied to the rows of the
+:doc:`CSVReader </local_rw/csvio.csvreader>` as soon as they are read from the CSV file.
 See :ref:`example code <csvreader_processors_usage>` for further details.
 
 Similarly, in the case where a Field Processor Object is passed to the
-constructor of :doc:`CSVWriter <csvio.csvwriter>`, it is applied to the rows of
-the :doc:`CSVWriter <csvio.csvwriter>` as soon as they are added for writing to
+constructor of :doc:`CSVWriter </local_rw/csvio.csvwriter>`, it is applied to the rows of
+the :doc:`CSVWriter </local_rw/csvio.csvwriter>` as soon as they are added for writing to
 the output CSV using its :py:func:`~csvio.CSVWriter.add_rows` method.
 See :ref:`example code <csvwriter_processors_usage>` for further details.
 
 .. _standalone_fp_usage:
 
-.. include:: examples/csvio.processors_standalone.rst
+.. include:: /examples/csvio.processors_standalone.rst
         :start-after: start-standalone_field_processor
         :end-before: end-standalone_field_processor
 

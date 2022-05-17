@@ -1,5 +1,5 @@
-Processor Base
-==============
+ProcessorBase
+=============
 
 .. autoclass:: csvio.processors.processor_base.ProcessorBase
     :show-inheritance:
