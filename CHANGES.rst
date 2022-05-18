@@ -1,9 +1,21 @@
 **2022-05-18**
 
+*Version 1.1.2*
+
+- Fix missing entry in changelog for v1.1.1
+
+**2022-05-18**
+
+*Version 1.1.1*
+
+- Fix broken link in documentation
+
+**2022-05-18**
+
 *Version 1.1.0*
 
 - Read CSV files from a FTP location.
-  `read more <https://csvio.readthedocs.io/en/latest/remote_rw/ftp/csvio.ftp_reader.rst>`_.
+  `read more <https://csvio.readthedocs.io/en/latest/remote_rw/ftp/csvio.ftp_reader.html>`_.
 - Test FTP reader using Docker fixtures, using a live FTP server.
 - Refactor documentation.
 
