@@ -1,5 +1,17 @@
 **2022-05-18**
 
+*Version 1.1.2*
+
+- Fix missing entry in changelog for v1.1.1
+
+**2022-05-18**
+
+*Version 1.1.1*
+
+- Fix broken link in documentation
+
+**2022-05-18**
+
 *Version 1.1.0*
 
 - Read CSV files from a FTP location.
