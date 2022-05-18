@@ -23,7 +23,7 @@ copyright = "2021, Salman Raza"
 author = "Salman Raza"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.0"
+release = "1.1.2"
 
 
 # -- General configuration ---------------------------------------------------
